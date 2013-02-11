@@ -1,16 +1,12 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package cs235;
 
 
 import java.util.regex.Pattern;
 
 /**
- *
- * @author Robert
  * The MS_DataAttribute Class stores one piece of data form the csv file
+ * @author Robert
+ * 
  * 
  */
 public class MS_DataAtribute {
@@ -91,7 +87,8 @@ public class MS_DataAtribute {
             return true;
        }
        
-
+       
+       
    } 
     
 }
