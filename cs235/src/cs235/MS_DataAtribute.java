@@ -26,7 +26,9 @@ public class MS_DataAtribute {
     // pattern to determin id String is a integer
     private final String INTPATTERN = "([0-9]*)";
     
-   
+    public MS_DataAtribute(String input){
+        boolean setDataAtribute = setDataAtribute(input);
+    }
     
  /**
  * Returns the data stored in the class of type int                         
