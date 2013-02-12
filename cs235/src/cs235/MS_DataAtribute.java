@@ -66,7 +66,7 @@ public class MS_DataAtribute {
     }
     
     
-     /**
+/**
  * Returns True if the program successfully decides where the string
  * input is actually a int double or string                        
 

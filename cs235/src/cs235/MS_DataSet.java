@@ -11,7 +11,14 @@ public class MS_DataSet {
     private String[] M_colNames;
     private int M_numCols, M_numRows;
     
-    public MS_DataSet(int width, int height){
+    
+    
+/**
+ * The MS_DataSet Class stores a structure of the entire data 
+ * @author Robert
+ */
+    
+    public void setMS_DataSet(int width, int height){
         M_numCols = width;
         M_numRows = height;
         M_dataSet = new MS_DataAtribute [height][width];
