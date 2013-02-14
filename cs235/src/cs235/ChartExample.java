@@ -250,6 +250,9 @@ public class ChartExample extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
 
+    
+    
+    
 public JFreeChart makeBarChart(){
   DefaultCategoryDataset dataset = new DefaultCategoryDataset();
   String title = jTextField1.getText();
@@ -257,6 +260,7 @@ public JFreeChart makeBarChart(){
   int colvaluey = jComboBox2.getSelectedIndex();
   int sum = 0;
   int preval = DB.getAtribute(colvaluex, 0).getIntDataAttribute();
+  
   for(int i= 0; i < DB.getNumOfRows()-1; i++ ){
      if(preval == DB.getAtribute(colvaluex, i).getIntDataAttribute()){
          sum += DB.getAtribute(colvaluey, i).getIntDataAttribute();
