@@ -23,7 +23,9 @@ public class Main {
      */
     public static void main(String[] args) {
         DS = new MS_DataSet();
-        csv = new MS_CSVParser(DS,new File("C:/test/csv.csv"));
+        //csv = new MS_CSVParser(DS,new File("C:/test/csv.csv"));
+        csv = new MS_CSVParser(DS,new File("/Users/Robert/Downloads/csv.csv"));
+        
         if(csv.ParseFile()){
         String[] n = DS.getColumnNames() ;
         for(int j = 0; j < DS.getNumOfColumns(); j++ ){
