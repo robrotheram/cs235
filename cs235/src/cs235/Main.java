@@ -5,6 +5,7 @@
 package cs235;
 
 import java.io.File;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -24,23 +25,40 @@ public class Main {
     public static void main(String[] args) {
         DS = new MS_DataSet();
         //csv = new MS_CSVParser(DS,new File("C:/test/csv.csv"));
-        csv = new MS_CSVParser(DS,new File("/Users/Robert/Downloads/csv.csv"));
         
-        if(csv.ParseFile()){
-        String[] n = DS.getColumnNames() ;
-        for(int j = 0; j < DS.getNumOfColumns(); j++ ){
-            System.out.print(n[j]+"  ");
-        }
-        System.out.println();
-        for(int i= 0; i < DS.getNumOfRows()-1; i++ ){
+        
+        File f=  getFile();
+        
+        if(f !=null){
+            csv = new MS_CSVParser(DS,f);
+            if(csv.ParseFile()){
+            String[] n = DS.getColumnNames() ;
             for(int j = 0; j < DS.getNumOfColumns(); j++ ){
-                System.out.print(DS.getAtribute(j, i).getIntDataAttribute()+"       ");                
+                System.out.print(n[j]+"  ");
             }
             System.out.println();
+            for(int i= 0; i < DS.getNumOfRows()-1; i++ ){
+                for(int j = 0; j < DS.getNumOfColumns(); j++ ){
+                    System.out.print(DS.getAtribute(j, i).getIntDataAttribute()+"       ");                
+                }
+                System.out.println();
+            }
+            }
+            ChartExample ce = new ChartExample(DS);
+            ce.setVisible(true);
         }
-        }
-        ChartExample ce = new ChartExample(DS);
-        ce.setVisible(true);
         
+    }
+    
+    
+    public static File getFile(){
+        File f =null;
+        JFileChooser fileChooser = new JFileChooser();
+        int returnValue = fileChooser.showOpenDialog(null);
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+          f = fileChooser.getSelectedFile();
+          System.out.println(f.getName());
+        }
+        return f;
     }
 }
