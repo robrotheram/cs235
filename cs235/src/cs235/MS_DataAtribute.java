@@ -76,6 +76,7 @@ public class MS_DataAtribute {
  * 
  * 
  */
+    
    public boolean setDataAtribute(String input){
         
        if(Pattern.matches(DOUBLEPATTERN, input)){

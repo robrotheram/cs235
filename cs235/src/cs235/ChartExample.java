@@ -13,6 +13,8 @@
 package cs235;
 
 import java.awt.BorderLayout;
+import java.awt.Rectangle;
+import javax.swing.JPanel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -187,11 +189,15 @@ public class ChartExample extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-            ChartPanel myChart = new ChartPanel(makeBarChart());
-            myChart.setMouseWheelEnabled(true);
-            jPanel1.setLayout(new java.awt.BorderLayout());
-            jPanel1.add(myChart,BorderLayout.CENTER);
-            jPanel1.validate();
+            
+        int x = jComboBox3.getSelectedIndex();
+        int y = jComboBox2.getSelectedIndex();
+        Rectangle r = new Rectangle(0,0,jPanel1.getWidth(),jPanel1.getWidth());
+        exampleChartPaneClass chrt = new exampleChartPaneClass(DB, x,y,jTextField1.getText(),r);
+        jPanel1.removeAll();
+        jPanel1.add(chrt);
+        jPanel1.validate();
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void chartSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chartSelectorActionPerformed
@@ -248,42 +254,6 @@ public class ChartExample extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
-
-
-    
-    
-    
-public JFreeChart makeBarChart(){
-  DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-  String title = jTextField1.getText();
-  int colvaluex = jComboBox3.getSelectedIndex();
-  int colvaluey = jComboBox2.getSelectedIndex();
-  int sum = 0;
-  int preval = DB.getAtribute(colvaluex, 0).getIntDataAttribute();
-  
-  for(int i= 0; i < DB.getNumOfRows()-1; i++ ){
-     if(preval == DB.getAtribute(colvaluex, i).getIntDataAttribute()){
-         sum += DB.getAtribute(colvaluey, i).getIntDataAttribute();
-     }else{
-         dataset.addValue(sum, title,Integer.toString(DB.getAtribute(colvaluex, (i-1)).getIntDataAttribute()));
-         sum = DB.getAtribute(colvaluey, i).getIntDataAttribute();
-         preval = DB.getAtribute(colvaluex, i).getIntDataAttribute();
-     }
-  }
-  
-   final JFreeChart chart = ChartFactory.createBarChart(
-            title,         // chart title
-            DB.getAColumnName(colvaluex),               // domain axis label
-            DB.getAColumnName(colvaluey),                  // range axis label
-            dataset,                  // data
-            PlotOrientation.VERTICAL, // orientation
-            true,                     // include legend
-            true,                     // tooltips?
-            false                     // URLs?
-        );
-   
-  return chart;
-}
 
 
 }
