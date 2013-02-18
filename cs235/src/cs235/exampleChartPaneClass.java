@@ -7,7 +7,6 @@ package cs235;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Rectangle;
-import javax.media.j3d.Bounds;
 import javax.swing.JPanel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
