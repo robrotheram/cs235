@@ -5,7 +5,6 @@
 package cs235;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Rectangle;
 import javax.swing.JPanel;
 import org.jfree.chart.ChartFactory;
@@ -60,7 +59,7 @@ public class exampleChartPaneClass extends JPanel {
  * 
  * 
  */
-    public  ChartPanel createPanel(){
+    private  ChartPanel createPanel(){
             
            ChartPanel myChart = new ChartPanel(createBarChart());
            myChart.setMouseWheelEnabled(true);
