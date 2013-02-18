@@ -27,8 +27,7 @@ public class MS_CSVParser {
         M_file = file;
         M_DB = db;
     }
-    
-    
+
     /**
      * ParseFile runs through the file the first line it takes the Column names
      * The rest of the file it make a new MS_DataAtribute and adds it with 
@@ -54,19 +53,25 @@ public class MS_CSVParser {
             while(in.hasNextLine()){
                 String[] tempData = in.nextLine().split(",");
                 if(checkArray(tempData)){
+                    int newPos =  0; 
                     for(int j =0; j < tempData.length; j++ ){
-                        if(!tempData[j].equals("")){
-                            M_DB.setMS_DataAtribute
-                               (new MS_DataAtribute(tempData[j]), j, i);
+                        
+                       if(!tempData[j].equals("")){
+                          
+                           M_DB.setMS_DataAtribute
+                              (new MS_DataAtribute(tempData[j]), newPos, i);
+                           newPos++;
                         }
+                       
                     }
+                    System.out.println();
                     i++;
                 }
             }
            
         } catch (Exception e) {
            isError = false;
-           System.err.println(e);
+           System.err.println("MS_CSVParser.ParseFile() Error :"+e);
         }
        return isError;
     }
@@ -81,10 +86,12 @@ public class MS_CSVParser {
     private Boolean checkArray(String[] check){
         Boolean isEmpty = false;
         for(int i = 0;i<check.length;i++){
+            
             if(!check[i].equals("")){
                 isEmpty = true;
                 break;
             }
+            
         }
         return isEmpty;
     }

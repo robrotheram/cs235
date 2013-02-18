@@ -39,7 +39,7 @@ public class Main {
             System.out.println();
             for(int i= 0; i < DS.getNumOfRows()-1; i++ ){
                 for(int j = 0; j < DS.getNumOfColumns(); j++ ){
-                    System.out.print(DS.getAtribute(j, i).getIntDataAttribute()+"       ");                
+                   System.out.print(DS.getAtribute(j, i).getIntDataAttribute()+"       ");                
                 }
                 System.out.println();
             }
