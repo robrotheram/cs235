@@ -8,6 +8,11 @@ package cs235;
  *
  * @author vampie
  */
-public class MS_Chart {
+public interface MS_Chart {
+    
+    boolean getDataSet(int[] dataSet);
+    boolean getDataSet(double[] dataSet);
+    boolean getDataSet(String[] dataSet);
+    
     
 }
