@@ -8,6 +8,11 @@ package cs235;
  *
  * @author vampie
  */
-public class MS_Visualisation {
+public interface MS_Visualisation {
+    
+    boolean getData();
+    
+    boolean display();
+    
     
 }
