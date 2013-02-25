@@ -8,11 +8,15 @@ import java.awt.BorderLayout;
 import java.awt.Rectangle;
 import java.util.Date;
 import javax.swing.JPanel;
+import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.CategoryDataset;
 
 /**
  *
- * @author vampie
+ * @author Kerryanne Tolhurst
  */
 public abstract class MS_Chart extends JPanel {
     private MS_DataSet M_DB;
@@ -22,7 +26,7 @@ public abstract class MS_Chart extends JPanel {
     private final String TITLE;
     
     public MS_Chart(MS_DataSet db,int xColumnPos, int yColPos, String title, Rectangle r){
-        M_DB = db;
+       M_DB = db;
        X_AXISDATAPOSITION = xColumnPos;
        Y_AXISDATAPOSITION = yColPos;
        TITLE = title;
@@ -33,55 +37,18 @@ public abstract class MS_Chart extends JPanel {
        this.setVisible(true);
     };
     
-    boolean setTimeDate(Date currentDate){
+    abstract boolean setChartTitle();
     
-        return true;
-    };
+    abstract boolean convertDataSet();
     
-    boolean setAuthor(String description){
-        
-        return true;
-    };
+    abstract boolean setColourMap();
     
-    boolean setDescription(String description){
-        return true;
-    };
-    
-    boolean setChartTitle(String chartTitle){
-        return true;
-    };
-    
-    boolean setHeight(int height){
-        return true;
-    };
-    
-    boolean setWidth(int width){
-        return true;
-    };
-    
-    boolean setPostion(int x, int y){
-        return true;
-    };
-    
-    boolean convertDataSet(int[] dataSet){
-        return true;
-    };
-    
-    boolean convertDataSet(double[] dataSet){
-        return true;
-    };
-    
-    boolean convertDataSet(String[] dataSet){
-        return true;
-    };
-    
-    boolean createChart(){
-        return true;
-    };
+    abstract public JFreeChart createChart();
     
     private ChartPanel createPanel(){
         ChartPanel myChart = new ChartPanel(createChart());
            myChart.setMouseWheelEnabled(true);
         return myChart;
     }
+    
 }
