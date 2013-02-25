@@ -7,9 +7,9 @@ import java.util.ArrayList;
  * @author Robert
  */
 public class MS_DataSet {
-    private MS_DataAtribute[][] M_dataSet;
-    private String[] M_colNames;
-    private int M_numCols, M_numRows;
+    private MS_DataAtribute[][] m_dataSet;
+    private String[] m_colNames;
+    private int m_numCols, m_numRows;
     
     
     
@@ -19,9 +19,9 @@ public class MS_DataSet {
  */
     
     public void setMS_DataSet(int width, int height){
-        M_numCols = width;
-        M_numRows = height;
-        M_dataSet = new MS_DataAtribute [height][width];
+        m_numCols = width;
+        m_numRows = height;
+        m_dataSet = new MS_DataAtribute [height][width];
     }
     /**
      * Set the Column names in this class
@@ -29,7 +29,7 @@ public class MS_DataSet {
      */
      
     public void setColNames(String[] colNames ){
-        M_colNames = colNames;
+        m_colNames = colNames;
     }
     /**
      * sets in the data array a MS_DataAtributs at position x ,y 
@@ -38,7 +38,7 @@ public class MS_DataSet {
      * @param y 
      */
     public void setMS_DataAtribute(MS_DataAtribute mDA, int x, int y){
-        M_dataSet[y][x] = mDA;
+        m_dataSet[y][x] = mDA;
     }
     /**
      * Reterns the dataAtribute and position x,y
@@ -47,7 +47,7 @@ public class MS_DataSet {
      * @return MS_DataAtribute 
      */
     public MS_DataAtribute getAtribute(int x, int y){
-        return M_dataSet[y][x];
+        return m_dataSet[y][x];
     }
     /**
      * Returns an Array representing a row in the Set at position y
@@ -56,7 +56,7 @@ public class MS_DataSet {
      * @return MS_DataAtribute[]
      */
     public MS_DataAtribute[] getAtributeRow(int y){
-        return M_dataSet[y];
+        return m_dataSet[y];
     }
     
     /**
@@ -64,7 +64,7 @@ public class MS_DataSet {
      * @return String[]
      */
     public String[] getColumnNames(){
-        return M_colNames;
+        return m_colNames;
     }
     /**
      * Gets the a single column name at position i in the array
@@ -72,21 +72,21 @@ public class MS_DataSet {
      * @return 
      */
     public String getAColumnName(int i){
-        return M_colNames[i];
+        return m_colNames[i];
     }
     /**
      * Returns the number of columns in the dataset
      * @return int
      */
     public int getNumOfColumns(){
-        return M_numCols;
+        return m_numCols;
     }
     /**
      * Returns the number of rows that the dataset represents. 
      * @return Int
      */
     public int getNumOfRows(){
-        return M_numRows;
+        return m_numRows;
     }
     
 }
