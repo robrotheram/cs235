@@ -49,6 +49,10 @@ public class MS_DataSet {
     public MS_DataAtribute getAtribute(int x, int y){
         return m_dataSet[y][x];
     }
+    
+     public MS_DataAtribute[][] getDataSet(){
+        return m_dataSet;
+    }
     /**
      * Returns an Array representing a row in the Set at position y
      * 
