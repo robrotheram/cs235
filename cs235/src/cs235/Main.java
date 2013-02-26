@@ -30,7 +30,7 @@ public class Main {
         File f=  getFile();
         
         if(f !=null){
-            csv = new MS_CSVParser(DS,f);
+            csv = new MS_CSVParser(DS,f,",");
             if(csv.ParseFile()){
             String[] n = DS.getColumnNames() ;
             for(int j = 0; j < DS.getNumOfColumns(); j++ ){
