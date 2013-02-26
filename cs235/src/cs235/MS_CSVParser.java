@@ -14,18 +14,19 @@ import java.util.Scanner;
  */
 
 public class MS_CSVParser {
-    private File M_file;
-    private MS_DataSet M_DB; 
-    
-    
+    private File m_file;
+    private MS_DataSet m_DB; 
+    private String m_delimitor; 
+    private final String CLASS = "MS_CSVParser";    
     /**
      * Class Constructure 
      * @param ds
      * @param file 
      */
-    public  MS_CSVParser(MS_DataSet db, File file){
-        M_file = file;
-        M_DB = db;
+    public  MS_CSVParser(MS_DataSet db, File file,String delimitor){
+        m_file = file;
+        m_delimitor = delimitor;
+        m_DB = db;
     }
 
     /**
@@ -39,16 +40,16 @@ public class MS_CSVParser {
     public Boolean ParseFile(){
         boolean isError = true;
         try {
-            Scanner in = new Scanner(M_file);
+            Scanner in = new Scanner(m_file);
             LineNumberReader  lnr = new LineNumberReader
-                                   (new FileReader(M_file));
+                                   (new FileReader(m_file));
             
-            String[] names  = in.nextLine().split(",");
+            String[] names  = in.nextLine().split(m_delimitor);
             lnr.skip(Long.MAX_VALUE);
-            M_DB.setMS_DataSet(names.length, lnr.getLineNumber());
-            System.err.println(lnr.getLineNumber());
+            m_DB.setMS_DataSet(names.length, lnr.getLineNumber());
+            System.err.println(CLASS+".PArseFile(): File Line vlaue = "+lnr.getLineNumber());
             
-            M_DB.setColNames(names);
+            m_DB.setColNames(names);
             int i = 0;
             while(in.hasNextLine()){
                 String[] tempData = in.nextLine().split(",");
@@ -58,13 +59,13 @@ public class MS_CSVParser {
                         
                        if(!tempData[j].equals("")){
                           
-                           M_DB.setMS_DataAtribute
+                           m_DB.setMS_DataAtribute
                               (new MS_DataAtribute(tempData[j]), newPos, i);
                            newPos++;
                         }
                        
                     }
-                    System.out.println();
+                   
                     i++;
                 }
             }
