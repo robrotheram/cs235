@@ -38,6 +38,8 @@ public abstract class MS_Chart extends JPanel {
     
     abstract boolean convertDataSet();
     
+    abstract boolean getColourMap();
+    
     abstract boolean setColourMap();
     
     abstract public JFreeChart createChart();
