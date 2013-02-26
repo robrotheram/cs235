@@ -10,11 +10,11 @@ import java.awt.Color;
  *
  * @author Wyler
  */
-interface MS_ColorScheme {
-    void setColor();
-    Color[] getColorArray();
-    Color getColor();
-    int getNumberOfColors();
+interface MS_ColourScheme {
+    void setColour();
+    Color[] getColourArray();
+    Color getColour();
+    int getNumberOfColours();
      
     
 }
