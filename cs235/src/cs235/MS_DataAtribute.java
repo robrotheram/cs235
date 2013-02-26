@@ -81,9 +81,12 @@ public class MS_DataAtribute {
         
        if(Pattern.matches(DOUBLEPATTERN, input)){
             m_AttributeDouble = Double.parseDouble(input);
+            m_AttributeString = input;
             return true;
        }else if(Pattern.matches(INTPATTERN, input)){
            m_AttributeInt = Integer.parseInt(input);
+           m_AttributeDouble = Integer.parseInt(input);
+            m_AttributeString = input;
             return true;
        }else{
            m_AttributeString = input;
@@ -93,5 +96,10 @@ public class MS_DataAtribute {
        
        
    } 
+   
+    @Override
+   public String toString(){
+      return m_AttributeString;
+   }
     
 }
