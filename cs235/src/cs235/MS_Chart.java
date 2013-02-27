@@ -21,10 +21,10 @@ import org.jfree.chart.JFreeChart;
  */
 public abstract class MS_Chart extends JPanel {
     
-    private MS_DataSet M_DB;
+    private MS_DataSet m_db;
     private final int X_AXISDATAPOSITION;
     private final int Y_AXISDATAPOSITION;
-    private String TITLE;
+    private String m_title;
     
     /**
      * constructor setting all class variables needed to create a chart
@@ -35,10 +35,10 @@ public abstract class MS_Chart extends JPanel {
      * @param r - to display the chart in the windows native size
      */
     public MS_Chart(MS_DataSet db,int xColumnPos, int yColPos, String title, Rectangle r){
-       M_DB = db;
+       m_db = db;
        X_AXISDATAPOSITION = xColumnPos;
        Y_AXISDATAPOSITION = yColPos;
-       TITLE = title;
+       m_title = title;
 
        this.setBounds(r);
        this.setLayout(new java.awt.BorderLayout());
@@ -47,27 +47,43 @@ public abstract class MS_Chart extends JPanel {
     };
     
     /**
-     * Abstract class for setting the chart title. 
+     * Allows setting the chart title. 
      */
     boolean setChartTitle(String newTitle){
-        TITLE = newTitle;
+        m_title = newTitle;
         return true;
     };
     
+    /**
+     * allows access to the dataset if needed
+     * @return M_DB
+     */
     MS_DataSet getDataSet(){
-        return M_DB;
+        return m_db;
     }
     
+    /**
+     * allows access to the data for x axis if needed
+     * @return X_AXISDATAPOSITION
+     */
     int getXColumnPosition(){
         return X_AXISDATAPOSITION;
     }
     
+    /**
+     * allows access to the data for y axis if needed
+     * @return Y_AXISDATAPOSITION
+     */
     int getYColumnPosition(){
         return Y_AXISDATAPOSITION;
     }
     
+    /**
+     * allows access to the chart title if needed
+     * @return m_title
+     */
     String getTitle(){
-        return TITLE;
+        return m_title;
     }
     /**
      * Abstract class for converting the program dataset to the format needed to
