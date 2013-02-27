@@ -3,3 +3,5 @@
 # Package Files #
 *.war
 *.ear
+/cs235/nbproject/private/
+/cs235/build/
