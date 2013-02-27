@@ -25,6 +25,7 @@ public abstract class MS_Chart extends JPanel {
     private final int X_AXISDATAPOSITION;
     private final int Y_AXISDATAPOSITION;
     private String m_title;
+    private MS_ColorMap m_cm;
     
     /**
      * constructor setting all class variables needed to create a chart
@@ -34,11 +35,12 @@ public abstract class MS_Chart extends JPanel {
      * @param title - chart title
      * @param r - to display the chart in the windows native size
      */
-    public MS_Chart(MS_DataSet db,int xColumnPos, int yColPos, String title, Rectangle r){
+    public MS_Chart(MS_DataSet db,int xColumnPos, int yColPos, String title, Rectangle r, MS_ColorMap cm){
        m_db = db;
        X_AXISDATAPOSITION = xColumnPos;
        Y_AXISDATAPOSITION = yColPos;
        m_title = title;
+       m_cm = cm;
 
        this.setBounds(r);
        this.setLayout(new java.awt.BorderLayout());
