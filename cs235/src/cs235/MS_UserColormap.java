@@ -11,7 +11,7 @@ import javax.swing.*;
 public class MS_UserColormap extends JFrame implements MS_ColorScheme{
     private Container container;  // container
     private JPanel colorPanel, color1,color2,color3,color4,color5; //panel which display selected color
-    Color[] colorarray = new Color[5];
+    private Color[] colorarray = new Color[5];
 /**
  * Constructor makes the User interface and sets up the variables
  * @param  null;
@@ -26,7 +26,7 @@ public class MS_UserColormap extends JFrame implements MS_ColorScheme{
         color4 = new JPanel();
         color5 = new JPanel();
         
-        // adding pannels to colorPannel
+        // adding panels to colorPanel
         colorPanel.add(color1);
         colorPanel.add(color2);
         colorPanel.add(color3);
@@ -72,39 +72,35 @@ public class MS_UserColormap extends JFrame implements MS_ColorScheme{
          setSize( 500, 250 );   //size of windows
          setVisible(true);  //set it visibale
     }
+    
+    public static void main(String args[]){
+        new MS_UserColormap();
+    }
 
+    @Override
+    public void setColourArray(Color[] carray) {
+        colorarray = carray;
+    }
 
-/**
- * returns the color map 
- * @return Color[] The map stored in a array of type Color
- */
-    public Color[] getColorArray() {
+    @Override
+    public void setColour(Color c, int i) {
+        colorarray[i] = c;
+    
+    }
+
+    @Override
+    public Color[] getColourArray() {
         return colorarray;
     }
 
-/**
- * Returns one color stored in that color map
- * @param int i the position in the color map
- * @return 
- */    
-    public Color getColor(int i) {
+    @Override
+    public Color getColour(int i) {
         return colorarray[i];
     }
 
-    /**
-     * Gets the length of the color map;
-     * @return int length of the map
-     */
-    public int getNumberOfColors() {
+    @Override
+    public int getNumberOfColours() {
         return colorarray.length;
-    }
-
-    /** 
-     * Main Method for testing this class
-     * @param args 
-     */
-    public static void main(String args[]){
-  new MS_UserColormap();
     }
 
 }
