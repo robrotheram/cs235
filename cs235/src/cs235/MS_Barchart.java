@@ -28,7 +28,7 @@ public class MS_Barchart extends MS_Chart{
      * @param title - chart title
      * @param r - to display the chart in the windows native size
      */
-    public MS_Barchart(MS_DataSet db,int xColumnPos, int yColPos, String title, Rectangle r, MS_colorMap cm){
+    public MS_Barchart(MS_DataSet db,int xColumnPos, int yColPos, String title, Rectangle r, MS_ColorMap cm){
         super(db, xColumnPos, yColPos, title, r, cm);
         
         
