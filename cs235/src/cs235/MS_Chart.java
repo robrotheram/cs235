@@ -91,7 +91,9 @@ public abstract class MS_Chart extends JPanel {
     /**
      * Abstract class theat returns the array of the current colour map 
      */
-    abstract boolean getColourMap();
+    MS_ColourMap getColourMap(){
+        return m_cm;
+    };
     
     /**
      * Abstract class that sets the current colour map and carries out any 
