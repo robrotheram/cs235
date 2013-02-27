@@ -24,7 +24,7 @@ public abstract class MS_Chart extends JPanel {
     private MS_DataSet M_DB;
     private final int X_AXISDATAPOSITION;
     private final int Y_AXISDATAPOSITION;
-    private final String TITLE;
+    private String TITLE;
     
     /**
      * constructor setting all class variables needed to create a chart
@@ -49,7 +49,10 @@ public abstract class MS_Chart extends JPanel {
     /**
      * Abstract class for setting the chart title. 
      */
-    abstract boolean setChartTitle();
+    boolean setChartTitle(String newTitle){
+        TITLE = newTitle;
+        return true;
+    };
     
     MS_DataSet getDataSet(){
         return M_DB;
