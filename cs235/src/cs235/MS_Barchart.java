@@ -10,6 +10,11 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.chart.renderer.category.BarRenderer; 
+import java.awt.Color; 
+import java.awt.Paint;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.renderer.category.CategoryItemRenderer;
 
 /**
 *@author William Bray
@@ -37,6 +42,7 @@ public class MS_Barchart extends MS_Chart{
      * The class for setting the chart title. 
      * @param title - the charts title
      */
+    @Override
     public boolean setChartTitle(String title){
         super.setChartTitle(title);
         return true;
@@ -77,7 +83,8 @@ public class MS_Barchart extends MS_Chart{
     /**
      * Abstract class theat returns the array of the current colour map 
      */
-    public boolean getColourMap(){
+    @Override
+    public MS_ColourMap getColourMap(){
         return super.getColourMap();
         
     }
@@ -86,14 +93,16 @@ public class MS_Barchart extends MS_Chart{
      * Abstract class that sets the current colour map and carries out any 
      * processing to change the colour of the chart elements
      */
-    public boolean setColourMap(){
-        super.setColourMap();
+    @Override
+    public boolean setColourMap(MS_ColourMap cm){
+        super.setColourMap(cm);
         return true;
     }
     
     /**
      * Abstract class that creates the actual chart 
      */
+    @Override
     public JFreeChart createChart(){
         final JFreeChart CHART = ChartFactory.createBarChart(
             super.getTitle(),         // chart title
@@ -106,8 +115,26 @@ public class MS_Barchart extends MS_Chart{
             false                     // URLs?
         );
         
-        
+        final CategoryPlot plot = CHART.getCategoryPlot(); 
+        CategoryItemRenderer renderer = new CustomRenderer(); 
+        plot.setRenderer(renderer);
         return CHART;
+    }
+    
+    class CustomRenderer extends BarRenderer { 
+        private Paint[] colors;
+        public CustomRenderer(){ 
+           MS_ColourMap mappedColours = getColourMap();
+           this.colors = new Paint[] {
+             mappedColours.getColour(1), mappedColours.getColour(2), mappedColours.getColour(3), 
+             mappedColours.getColour(4), mappedColours.getColour(5)}; 
+        }
+        
+        @Override
+        public Paint getItemPaint(final int row, final int column) { 
+           // returns color for each column 
+           return (this.colors[column % this.colors.length]); 
+        } 
     }
     
     /**
