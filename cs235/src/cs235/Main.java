@@ -27,7 +27,7 @@ public class Main {
         //csv = new MS_CSVParser(DS,new File("C:/test/csv.csv"));
         
         
-        File f=  getFile();
+        File f= getFile();
         
         if(f !=null){
             csv = new MS_CSVParser(DS,f,",");
