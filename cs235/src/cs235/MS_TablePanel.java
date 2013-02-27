@@ -69,8 +69,6 @@ import javax.swing.table.DefaultTableModel;
  
  }
  
- public static void main(String[] args){
-     MS_TablePanel tp = new MS_TablePanel
- }
+
  }
  
