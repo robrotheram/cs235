@@ -52,7 +52,6 @@ import javax.swing.table.DefaultTableModel;
        this.add(getTable(),BorderLayout.CENTER);
        this.setVisible(true);
        
-       System.out.println("stuff has happend");
     }
     
     
@@ -67,5 +66,11 @@ import javax.swing.table.DefaultTableModel;
     private JScrollPane getTable(){
             JTable t = new JTable(m_DB.getDataSet(),m_DB.getColumnNames());
             return  new JScrollPane(t);
-    } 
+ 
  }
+ 
+ public static void main(String[] args){
+     MS_TablePanel tp = new MS_TablePanel
+ }
+ }
+ 
