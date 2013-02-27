@@ -28,7 +28,7 @@ public class MS_Barchart extends MS_Chart{
      * @param title - chart title
      * @param r - to display the chart in the windows native size
      */
-    public MS_Barchart(MS_DataSet db,int xColumnPos, int yColPos, String title, Rectangle r, MS_ColorMap cm){
+    public MS_Barchart(MS_DataSet db,int xColumnPos, int yColPos, String title, Rectangle r, MS_ColourMap cm){
         super(db, xColumnPos, yColPos, title, r, cm);
         
         
@@ -77,7 +77,7 @@ public class MS_Barchart extends MS_Chart{
     /**
      * Abstract class theat returns the array of the current colour map 
      */
-    public boolean getColourMap(){
+    public MS_ColourMap getColourMap(){
         return super.getColourMap();
         
     }
@@ -86,8 +86,8 @@ public class MS_Barchart extends MS_Chart{
      * Abstract class that sets the current colour map and carries out any 
      * processing to change the colour of the chart elements
      */
-    public boolean setColourMap(){
-        super.setColourMap();
+    public boolean setColourMap(MS_ColourMap cm){
+        super.setColourMap(cm);
         return true;
     }
     

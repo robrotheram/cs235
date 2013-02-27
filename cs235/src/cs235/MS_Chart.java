@@ -25,7 +25,7 @@ public abstract class MS_Chart extends JPanel {
     private final int X_AXISDATAPOSITION;
     private final int Y_AXISDATAPOSITION;
     private String m_title;
-    private MS_ColorMap m_cm;
+    private MS_ColourMap m_cm;
     
     /**
      * constructor setting all class variables needed to create a chart
@@ -35,7 +35,7 @@ public abstract class MS_Chart extends JPanel {
      * @param title - chart title
      * @param r - to display the chart in the windows native size
      */
-    public MS_Chart(MS_DataSet db,int xColumnPos, int yColPos, String title, Rectangle r, MS_ColorMap cm){
+    public MS_Chart(MS_DataSet db,int xColumnPos, int yColPos, String title, Rectangle r, MS_ColourMap cm){
        m_db = db;
        X_AXISDATAPOSITION = xColumnPos;
        Y_AXISDATAPOSITION = yColPos;
@@ -91,13 +91,15 @@ public abstract class MS_Chart extends JPanel {
     /**
      * Abstract class theat returns the array of the current colour map 
      */
-    abstract boolean getColourMap();
+    MS_ColourMap getColourMap(){
+        return m_cm;
+    };
     
     /**
      * Abstract class that sets the current colour map and carries out any 
      * processing to change the colour of the chart elements
      */
-    boolean setColourMap(MS_ColorMap colourMap){
+    boolean setColourMap(MS_ColourMap colourMap){
         m_cm = colourMap;
         
         return true;
