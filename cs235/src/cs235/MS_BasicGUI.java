@@ -5,14 +5,21 @@
 package cs235;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -25,18 +32,38 @@ public class MS_BasicGUI extends JFrame{
     JFrame m_chartOptions;
     JTabbedPane m_displayTabs;
     JButton m_importData, m_createChart, m_saveButton;
-    Container m_container;
+    JComboBox m_xAxisData, m_yAxisData;
+    JTextField m_chartTitle;
+    Container m_container = getContentPane();;
+    double m_height, m_width;
+    int m_percentageHeight, m_percentageWidth;
     
-    MS_BasicGUI(){
+    public void MS_BasicGUI(){
         //create empty dataset
         m_db = new MS_DataSet();
-        
+              
         //create container for GUI
-        m_container = getContentPane();
-        m_container.setLayout(new BorderLayout());
+        
+        //creates a toolkit for our container
+        Toolkit m_kit = m_container.getToolkit(); 
+        //saves the dimension of users screen size
+        Dimension m_screenSize = m_kit.getScreenSize();
+        System.out.println(m_screenSize);
+        m_container.setPreferredSize(m_screenSize);
+        m_container.setLayout(new BoxLayout(m_container, BoxLayout.LINE_AXIS));
+        m_height = m_screenSize.getHeight();
+        m_width = m_screenSize.getWidth();
+        System.out.println(m_width + " " + m_height);
+        
         
         //create display area for data and charts
+        m_percentageHeight = (int)(Math.round(m_height * 0.90));
+        m_percentageWidth = (int) (Math.round(m_width * 0.70));
+        System.out.println(m_percentageWidth);
         m_displayArea = new JPanel();
+        m_displayArea.setBackground(Color.yellow);
+        m_displayArea.setPreferredSize(new Dimension(m_percentageWidth, m_percentageHeight));
+        System.out.println(m_displayArea.getHeight() + " " +  m_displayArea.getWidth());
         m_displayTabs = new JTabbedPane();
         m_displayArea.add(m_displayTabs);
         
@@ -50,6 +77,11 @@ public class MS_BasicGUI extends JFrame{
         m_createChart = new JButton("Create Chart");
         
         //add buttons to the tool panel
+        int m_percentageHeight2 = (int)(Math.round(m_height * 0.90));
+        int m_percentageWidth2 = (int) (Math.round(m_width * 0.20));
+        m_toolPanel.setPreferredSize(new Dimension(m_percentageWidth2, m_percentageHeight2));
+        m_toolPanel.setBackground(Color.RED);
+        System.out.println(m_toolPanel.getHeight() + " " + m_toolPanel.getWidth());
         m_toolPanel.add(m_importData);
         m_toolPanel.add(m_createChart);
         
@@ -60,6 +92,10 @@ public class MS_BasicGUI extends JFrame{
         //create chart option window
         m_chartOptions = new JFrame();
         m_optionPane = new JPanel();
+        m_chartTitle = new JTextField();
+        m_xAxisData = new JComboBox();
+        m_yAxisData = new JComboBox();
+        
         m_chartOptions.add(m_optionPane);
         
         //add handlers 
@@ -67,15 +103,22 @@ public class MS_BasicGUI extends JFrame{
         m_importData.addActionListener(m_handler);
         m_createChart.addActionListener(m_handler);
         
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
+        
     }
     
     public class MS_GUIHandler implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event) {
             if(event.getSource() == m_importData){
+                //creates a new CSVFileDialog for opening CSV files
                 JFrame getFile = new MS_CsvFileDialog(m_db);
                 getFile.setVisible(true);
                 System.out.println("button pressed");
+                MS_TablePanel table = new MS_TablePanel(m_db);
+                m_displayTabs.addTab("Data", table);
             }else if(event.getSource() == m_createChart){
                 m_chartOptions.setVisible(true);
             }
@@ -86,6 +129,6 @@ public class MS_BasicGUI extends JFrame{
  
        MS_BasicGUI example1 = new MS_BasicGUI();
        example1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-       example1.setVisible(true);
+       example1.MS_BasicGUI();
     }
 }
