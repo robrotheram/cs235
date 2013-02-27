@@ -95,7 +95,7 @@ public class MS_Barchart extends MS_Chart{
      * Abstract class that creates the actual chart 
      */
     public JFreeChart createChart(){
-        final JFreeChart chart = ChartFactory.createBarChart(
+        final JFreeChart CHART = ChartFactory.createBarChart(
             super.getTitle(),         // chart title
             super.getDataSet().getAColumnName(super.getXColumnPosition()),               // domain axis label
             super.getDataSet().getAColumnName(super.getYColumnPosition()),                  // range axis label
@@ -107,7 +107,7 @@ public class MS_Barchart extends MS_Chart{
         );
         
         
-        return chart;
+        return CHART;
     }
     
     /**
