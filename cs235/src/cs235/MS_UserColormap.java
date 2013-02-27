@@ -1,23 +1,22 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package cs235;
 
 /**
- *
+ *This Class aloud the user to choose their own custom color map
  * @author Zhenjie Mu
  */
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
     
-public class MS_Colormap extends JFrame implements MS_ColorScheme{
+public class MS_UserColormap extends JFrame implements MS_ColorScheme{
     private Container container;  // container
     private JPanel colorPanel, color1,color2,color3,color4,color5; //panel which display selected color
     Color[] colorarray = new Color[5];
-    
-    public MS_Colormap() {  //constructor
+/**
+ * Constructor makes the User interface and sets up the variables
+ * @param  null;
+ */    
+    public MS_UserColormap() {  //constructor
         super( "Color" );  //JFrame constructor is called
         container = getContentPane();  // get container
         colorPanel = new JPanel(new FlowLayout());  // initialize the panel
@@ -40,7 +39,7 @@ public class MS_Colormap extends JFrame implements MS_ColorScheme{
                    JColorChooser chooser = new JColorChooser();  // color chooser
                     for(int i = 0; i < colorarray.length ; i++){
                        Color color = chooser.showDialog
-                               (MS_Colormap.this,"Colormap",Color.white);
+                               (MS_UserColormap.this,"Colormap",Color.white);
                         if (color != null){  //if no color selected
                             switch(i){
                                 case 0: color1.setBackground(color); 
@@ -73,24 +72,39 @@ public class MS_Colormap extends JFrame implements MS_ColorScheme{
          setSize( 500, 250 );   //size of windows
          setVisible(true);  //set it visibale
     }
-public static void main(String args[]){
-  new MS_Colormap();
-    }
 
 
+/**
+ * returns the color map 
+ * @return Color[] The map stored in a array of type Color
+ */
     public Color[] getColorArray() {
         return colorarray;
     }
 
-    
+/**
+ * Returns one color stored in that color map
+ * @param int i the position in the color map
+ * @return 
+ */    
     public Color getColor(int i) {
         return colorarray[i];
     }
 
-   
+    /**
+     * Gets the length of the color map;
+     * @return int length of the map
+     */
     public int getNumberOfColors() {
         return colorarray.length;
     }
 
+    /** 
+     * Main Method for testing this class
+     * @param args 
+     */
+    public static void main(String args[]){
+  new MS_UserColormap();
+    }
 
 }
