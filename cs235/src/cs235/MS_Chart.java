@@ -97,7 +97,11 @@ public abstract class MS_Chart extends JPanel {
      * Abstract class that sets the current colour map and carries out any 
      * processing to change the colour of the chart elements
      */
-    abstract boolean setColourMap();
+    boolean setColourMap(MS_ColorMap colourMap){
+        m_cm = colourMap;
+        
+        return true;
+    };
     
     /**
      * Abstract class that creates the actual chart 
