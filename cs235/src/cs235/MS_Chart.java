@@ -51,6 +51,21 @@ public abstract class MS_Chart extends JPanel {
      */
     abstract boolean setChartTitle();
     
+    MS_DataSet getDataSet(){
+        return M_DB;
+    }
+    
+    int getXColumnPosition(){
+        return X_AXISDATAPOSITION;
+    }
+    
+    int getYColumnPosition(){
+        return Y_AXISDATAPOSITION;
+    }
+    
+    String getTitle(){
+        return TITLE;
+    }
     /**
      * Abstract class for converting the program dataset to the format needed to
      * make a chart from it.
