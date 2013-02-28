@@ -25,8 +25,9 @@ public class MS_ColourMap implements MS_ColorScheme{
  */
     
         @Override
-    public void setColourArray(Color[] carray) {
+    public boolean  setColourArray(Color[] carray) {
         colorarray = carray;
+        return true;
     }
 
      /**
@@ -36,8 +37,9 @@ public class MS_ColourMap implements MS_ColorScheme{
      * @param int  
      */
     @Override
-    public void setColour(Color c, int i) {
+    public boolean setColour(Color c, int i) {
         colorarray[i] = c;
+        return true;
     
     }
     
