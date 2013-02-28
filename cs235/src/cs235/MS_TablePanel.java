@@ -62,7 +62,7 @@ import javax.swing.table.DefaultTableModel;
     * 
     * 
     */
-    public JScrollPane getTable(){
+    private JScrollPane getTable(){
         JTable t = new JTable(m_DB.getDataSet(),m_DB.getColumnNames());
         return  new JScrollPane(t);
 
@@ -76,11 +76,14 @@ import javax.swing.table.DefaultTableModel;
    
 
     public static void main (String[] args){
-        
+        int passed =0;
+        int failed = 0;
         // check if panel loads with corrct data
-        
+         MS_TablePanel tP = null;
         try{
-            System.out.println("MS_TablePannel.main():Test Load Panel with table");
+            System.out.println("MS_TablePannel.main():Test Load Panel with "
+                    + "table");
+            
             final Rectangle FRAMESIZE = new Rectangle(0, 0, 500, 350); 
             // Setting up the frame
             JFrame view = new JFrame("Change me");
@@ -92,18 +95,57 @@ import javax.swing.table.DefaultTableModel;
             MS_DataSet db = new MS_DataSet();
             MS_CSVParser csv = new MS_CSVParser(db,f,",");
             csv.ParseFile();
-            MS_TablePanel tP = new MS_TablePanel(db,view.getBounds() );
+            tP =  new MS_TablePanel(db,view.getBounds() ); 
             container.add(tP);
             container.validate();
             container.repaint();
             view.repaint();
             view.setVisible(true);
              System.out.println("MS_TablePannel.main(): Load Pannel with table"
-                    + " failed : "+ e);
+                    + " Test Successful: ");
+             passed++;
         }catch(Exception e){
             System.err.println("MS_TablePannel.main(): Load Pannel with table"
                     + " failed : "+ e);
+            failed++;
         }
+        
+        System.out.println("MS_TablePannel.main():Test setDataSet() ");
+        if(tP.setDataSet(new MS_DataSet())){
+            System.out.println("MS_TablePannel.main():Test setDataSet()"
+                    + " successful");
+            passed++;
+        }else{
+            System.out.println("MS_TablePannel.main():Test setDataSet()"
+                    + " failed");
+            failed++;
+            
+        }
+        
+        System.out.println("MS_TablePannel.main():Test getDataSet() ");
+        if(tP.setDataSet(new MS_DataSet())){
+            System.out.println("MS_TablePannel.main():Test getDataSet()"
+                    + " successful");
+            passed++;
+        }else{
+            System.out.println("MS_TablePannel.main():Test getDataSet()"
+                    + " failed");
+            failed++;
+            
+        }
+        
+        
+        
+        System.out.println("------------------------------------------------");
+        System.out.println("                 Testing Output                 ");
+        System.out.println();
+        System.out.println();
+        System.out.println("Number of test run: "+(passed+failed));
+        System.out.println("Ms_TablePanel() Passed:  "+(passed));
+        System.out.println("Ms_TablePanel() Failed:  "+(failed));
+        System.out.println();
+        System.out.println();
+        System.out.println("------------------------------------------------");
         
         
         

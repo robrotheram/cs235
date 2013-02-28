@@ -96,7 +96,6 @@ public class MS_CSVParser {
             int newPos =  0; 
             for(int j =0; j < tempData.length; j++ ){
                 if(!tempData[j].equals("")){
-                    System.err.println(i);
                     m_DB.setMS_DataAtribute(new MS_DataAtribute(tempData[j]),
                             newPos, i);
                     newPos++;
