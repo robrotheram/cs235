@@ -13,10 +13,10 @@ public class MS_DataSet {
     
     
     
-/**
- * The MS_DataSet Class stores a structure of the entire data 
- * @author Robert
- */
+    /**
+     * The MS_DataSet Class stores a structure of the entire data 
+     * @author Robert
+     */
     
     public void setMS_DataSet(int width, int height){
         m_numCols = width;
@@ -25,7 +25,7 @@ public class MS_DataSet {
     }
     /**
      * Set the Column names in this class
-     * @param colNames 
+     * @param String[] colNames 
      */
      
     public void setColNames(String[] colNames ){
@@ -33,24 +33,36 @@ public class MS_DataSet {
     }
     /**
      * sets in the data array a MS_DataAtributs at position x ,y 
-     * @param mDA
-     * @param x
-     * @param y 
+     * @param MS_DataAtribute mDA the cell of data
+     * @param int x:  Position x in the 2 dimentional array;
+     * @param int y:  Position y in the 2 dimentional array;
      */
     public void setMS_DataAtribute(MS_DataAtribute mDA, int x, int y){
         m_dataSet[y][x] = mDA;
     }
     /**
      * Reterns the dataAtribute and position x,y
-     * @param x
-     * @param y
-     * @return MS_DataAtribute 
+     * @param int x:  Position x in the 2 dimentional array;
+     * @param int y:  Position y in the 2 dimentional array;
+     * @return MS_DataAtribute single cell of data
      */
     public MS_DataAtribute getAtribute(int x, int y){
         return m_dataSet[y][x];
     }
-    
-     public MS_DataAtribute[][] getDataSet(){
+    /**
+     * set the entire dataset
+     * @param MS_DataAtribute[][] the representation of the table data
+     * @return Boolean true if run. 
+     */
+    public boolean setDataSet(MS_DataAtribute[][] data){
+        m_dataSet = data;
+        return true;
+    }
+    /**
+     * Outputs the entire dataset
+     * @return MS_DataAtribute[][]  The entire dataset
+     */
+    public MS_DataAtribute[][] getDataSet(){
         return m_dataSet;
     }
     /**
