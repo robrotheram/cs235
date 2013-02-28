@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.ComponentOrientation;
 import java.awt.Container;
 import java.awt.FlowLayout;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -41,8 +42,16 @@ public class MS_CsvFileDialog extends JFrame {
     private File m_File;
     private MS_DataSet m_db;
     private MS_BasicGUI m_Context;
+    
 
     //Constants
+    private final Rectangle PANNELSIZE = new Rectangle(0,0,400,120);
+    private final Rectangle FRAMESIZE = new Rectangle(400,400,500,280);
+    private final Rectangle SAMPLEDATASIZE = new Rectangle(0,0,400,400);
+    private final int COLUMNCOUNTFILE = 20;
+    private final int COLUMNCOUNTDEL = 20;
+    private final int TEXTAREACOLUMN = 10;
+    private final int TEXTAREAROW = 40;
     private final boolean TESTING = true;
     private final String FILLER = "Sample text are";
     private final String NEWLINE = "\n";
@@ -55,22 +64,24 @@ public class MS_CsvFileDialog extends JFrame {
      * progrma
      */
     public MS_CsvFileDialog (MS_DataSet db, MS_BasicGUI context){
-            m_db = db;
-            m_Context = context;
+           
             if(setDataset(db)){
-               System.out.println(CLASS+".setDataset(): Dataset set Correctly"); 
+                System.out.println(CLASS+".setDataset():Dataset set Correctly"); 
             }else{
-                System.out.println(CLASS+".displayFile(): File Has been"
-                                + " read no errors");
+                System.out.println(CLASS+".setDataset():Failed to add");
             }
             if(setContext(context)){
-                System.out.println(CLASS+".displayFile(): File Has been"
-                                + " read no errors");
+                System.out.println(CLASS+".setContext():Context set Correctly");
             }else{
-                System.out.println(CLASS+".displayFile(): File Has been"
-                                + " read no errors");
+                System.out.println(CLASS+".setContext():Failed");
             }
-            init();
+            if(init()){
+                System.out.println(CLASS+".init():Gui initiated Correctly");
+            }else{
+                System.out.println(CLASS+".init():Failed");
+            }
+            
+            
     }
     
     /**
@@ -80,31 +91,31 @@ public class MS_CsvFileDialog extends JFrame {
      */
     public boolean init(){
         handle = new EventHandler();
-        this.setBounds(400,400,500,280);
+        this.setBounds(FRAMESIZE);
         this.setResizable(false);
         this.setLayout(new BorderLayout());
         JPanel mainContainer = new JPanel();
         mainContainer.setLayout(new FlowLayout((FlowLayout.LEFT)));
         m_BrowsePanel = new JPanel();
-        m_BrowsePanel.setBounds(0,0,400,120);
+        m_BrowsePanel.setBounds(PANNELSIZE);
         m_BrowsePanel.setLayout(new FlowLayout((FlowLayout.LEFT)));
 
         m_ChoosePannel = new JPanel();
-        m_ChoosePannel.setBounds(0,0,400,120);
+        m_ChoosePannel.setBounds(PANNELSIZE);
         m_ChoosePannel.setLayout(new FlowLayout((FlowLayout.LEFT)));
 
         m_ButtonPannel = new JPanel();
-        m_ButtonPannel.setBounds(0,0,400,120);
+        m_ButtonPannel.setBounds(PANNELSIZE);
         m_ButtonPannel.setLayout(new FlowLayout());
 
 
 
         m_Sample = new JPanel();
-        m_Sample.setBounds(0,0,400,120);
+        m_Sample.setBounds(PANNELSIZE);
 
 
-        m_SampleData = new JTextArea(FILLER, 10,40);
-        m_SampleData.setBounds(0,0,400,400);
+        m_SampleData = new JTextArea(FILLER, TEXTAREACOLUMN,TEXTAREAROW);
+        m_SampleData.setBounds(SAMPLEDATASIZE);
 
         m_ScrollText = new JScrollPane(m_SampleData, 
         JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, 
@@ -117,7 +128,7 @@ public class MS_CsvFileDialog extends JFrame {
         m_Description.setText("Choose Delimiter:");	
 
         m_delimiterFeild = new JTextField();
-        m_delimiterFeild.setColumns(10);
+        m_delimiterFeild.setColumns(COLUMNCOUNTDEL);
         m_delimiterFeild.setText(",");
 
         m_ChoosePannel.add(m_Description);
@@ -125,7 +136,7 @@ public class MS_CsvFileDialog extends JFrame {
 
 
         m_FilePath = new JTextField();
-        m_FilePath.setColumns(20);
+        m_FilePath.setColumns(COLUMNCOUNTFILE);
 
         m_ButtonBrowse = new JButton("Browser for csv file");
         m_ButtonBrowse.addActionListener(handle);
@@ -174,7 +185,7 @@ public class MS_CsvFileDialog extends JFrame {
                     + "been performed ");
 
             if(event.getSource() == m_ButtonBrowse){
-                 System.out.println(CLASS+"EventHandler.actionPerformed(): "
+                System.out.println(CLASS+"EventHandler.actionPerformed(): "
                          + " m_ButtonBrowse been pressed ");
 
                 m_FilePath.setText((getFileDialog()));
@@ -188,7 +199,6 @@ public class MS_CsvFileDialog extends JFrame {
             }else if(event.getSource() == m_ButtonCancel){
                 System.out.println(CLASS+"EventHandler.actionPerformed():"
                         + " m_ButtonCancel been pressed");
-
                 dispose(); 
                 
             }else if(event.getSource() == m_ButtonAppy){
@@ -203,11 +213,6 @@ public class MS_CsvFileDialog extends JFrame {
                }else{
                    System.out.println(CLASS+"EventHandler.actionPerformed():"
                            + " parseFile() has faild");
-               }
-               if(TESTING){
-                   System.out.println (CLASS+"EventHandler.actionPerformed():"
-                           + " Testing output");
-                test();
                }
                 dispose(); 
 
@@ -309,16 +314,7 @@ public class MS_CsvFileDialog extends JFrame {
         return csv.ParseFile();
     }
 
-    public void test(){
-        System.out.println();
-        for(int i= 0; i < m_db.getNumOfRows()-1; i++ ){
-            for(int j = 0; j < m_db.getNumOfColumns(); j++ ){
-               System.out.print
-                       (m_db.getAtribute(j, i).getIntDataAttribute()+"       ");                
-            }
-            System.out.println();
-        }
-    }
+    
     /**
     * Main Method for testing this file
     * @param String[] args command Line arguments

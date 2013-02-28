@@ -14,7 +14,7 @@ import java.util.Scanner;
  */
 
 public class MS_CSVParser {
-    private File m_file;
+    private File m_File;
     private MS_DataSet m_DB; 
     private String m_delimitor; 
     private final String CLASS = "MS_CSVParser";    
@@ -24,9 +24,22 @@ public class MS_CSVParser {
      * @param file 
      */
     public  MS_CSVParser(MS_DataSet db, File file,String delimitor){
-        m_file = file;
-        m_delimitor = delimitor;
-        m_DB = db;
+         if(setDataset(db)){
+                System.out.println(CLASS+".setDataset():Dataset set Correctly"); 
+            }else{
+                System.out.println(CLASS+".setDataset():Failed to add");
+            }
+            if(setDelimiter(delimitor)){
+                System.out.println(
+                        CLASS+".setDelimiter():Delimitor set Correctly");
+            }else{
+                System.out.println(CLASS+".setDelimiter():Failed");
+            }
+            if(setFile(file)){
+                System.out.println(CLASS+".setFile():File Set Correctly");
+            }else{
+                System.out.println(CLASS+".setFile():Failed");
+            }
     }
 
     /**
@@ -40,34 +53,27 @@ public class MS_CSVParser {
     public Boolean ParseFile(){
         boolean isError = true;
         try {
-            Scanner in = new Scanner(m_file);
+            Scanner in = new Scanner(m_File);
             LineNumberReader  lnr = new LineNumberReader
-                                   (new FileReader(m_file));
+                                   (new FileReader(m_File));
             
             
             String[] names  = in.nextLine().split(m_delimitor);
             lnr.skip(Long.MAX_VALUE);
             m_DB.setMS_DataSet(names.length, lnr.getLineNumber());
-            System.err.println(CLASS+".PArseFile(): File Line vlaue = "+lnr.getLineNumber());
+            System.err.println(CLASS+".PArseFile(): File Line vlaue = "+
+                    lnr.getLineNumber());
             
             m_DB.setColNames(names);
             int i = 0;
             while(in.hasNextLine()){
                 String[] tempData = in.nextLine().split(",");
-                if(checkArray(tempData)){
-                    int newPos =  0; 
-                    for(int j =0; j < tempData.length; j++ ){
-                        
-                       if(!tempData[j].equals("")){
-                          
-                           m_DB.setMS_DataAtribute
-                              (new MS_DataAtribute(tempData[j]), newPos, i);
-                           newPos++;
-                        }
-                       
-                    }
-                   
-                    i++;
+                int test = insertData(tempData , i);
+                if(test ==0){
+                    System.out.println(CLASS+".insertData():Failed");
+                }else{
+                    i = test;
+                    System.out.println(CLASS+".insertData():Complete");
                 }
             }
            
@@ -78,6 +84,28 @@ public class MS_CSVParser {
        return isError;
     }
     
+    /**
+     * The function checks the array to see if it is null if not it inserts it
+     * to the MS_DataSet
+     * @param String[] the row of data from the csv parser
+     * @param int the row position in the array
+     * @return int 0 if the array is null or x+1 if it is successful  
+     */
+    private int insertData(String[] tempData, int i){
+        if(checkArray(tempData)){
+            int newPos =  0; 
+            for(int j =0; j < tempData.length; j++ ){
+                if(!tempData[j].equals("")){
+                    m_DB.setMS_DataAtribute(new MS_DataAtribute(tempData[j]),
+                            newPos, i);
+                    newPos++;
+                }       
+            }
+            return i++;
+        }else{
+            return 0;
+        }
+    }
     
     /**
      * Method to check if line is empty Requires a the String[] and returns true
@@ -97,5 +125,53 @@ public class MS_CSVParser {
         }
         return isEmpty;
     }
+    
+     public boolean setFile(File f){
+        m_File = f;
+        return true;
+    }
+
+    /**
+    * Gets the File used
+    * @return MS_BasicGUI 
+    */
+    public File getFile(){
+        return m_File;
+    }
+    /** 
+    * Sets the dataset used in the class
+    * @param  MS_DataSet the dataset of this class
+    * @return boolean true if set correctly
+    */
+    public boolean setDataset(MS_DataSet db){
+        m_DB = db;
+        return true;
+    }
+
+    /**
+    * Gets the Dataset of this class
+    * @return MS_BasicGUI 
+    */
+    public MS_DataSet getDataSet(){
+        return m_DB;
+    }
+    /** 
+    * Sets the Delimitor used in parsing the file;
+    * @param  String  the file's delimitor;
+    * @return boolean true if set correctly
+    */
+    public boolean setDelimiter(String del){
+        m_delimitor = del;
+        return true;
+    }
+
+    /**
+    * Gets the delimitor of this class
+    * @return String 
+    */
+    public String getDelimitor(){
+        return m_delimitor;
+    }
+    
 }
  
