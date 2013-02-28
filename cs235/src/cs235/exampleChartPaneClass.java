@@ -35,6 +35,8 @@ public class exampleChartPaneClass extends JPanel {
      * @param Rectangle r - the size of this Panel 
      */
     
+    
+    
     public exampleChartPaneClass(MS_DataSet db,int xColumnPos, int yColPos, String title, Rectangle r){
        M_DB = db;
        X_AXISDATAPOSITION = xColumnPos;
@@ -76,6 +78,8 @@ public class exampleChartPaneClass extends JPanel {
  * @return JFreeChart char - A Constructed Bar Chart
  * 
  **/
+    
+
     
     public JFreeChart createBarChart(){
         final JFreeChart chart = ChartFactory.createBarChart(
