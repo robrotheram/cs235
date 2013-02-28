@@ -61,19 +61,19 @@ public class MS_CSVParser {
             String[] names  = in.nextLine().split(m_delimitor);
             lnr.skip(Long.MAX_VALUE);
             m_DB.setMS_DataSet(names.length, lnr.getLineNumber());
-            System.err.println(CLASS+".PArseFile(): File Line vlaue = "+
+            System.err.println(CLASS+".ParseFile(): File Line vlaue = "+
                     lnr.getLineNumber());
             
             m_DB.setColNames(names);
             int i = 0;
             while(in.hasNextLine()){
                 String[] tempData = in.nextLine().split(",");
-                int test = insertData(tempData , i);
-                if(test ==0){
-                    System.out.println(CLASS+".insertData():Failed");
-                }else{
-                    i = test;
+       
+                if(insertData(tempData , i)){
+                    i++;
                     System.out.println(CLASS+".insertData():Complete");
+                }else{
+                    System.out.println(CLASS+".insertData():Failed");
                 }
             }
            
@@ -89,21 +89,22 @@ public class MS_CSVParser {
      * to the MS_DataSet
      * @param String[] the row of data from the csv parser
      * @param int the row position in the array
-     * @return int 0 if the array is null or x+1 if it is successful  
+     * @return boolean True if successful  
      */
-    private int insertData(String[] tempData, int i){
+    private boolean insertData(String[] tempData, int i){
         if(checkArray(tempData)){
             int newPos =  0; 
             for(int j =0; j < tempData.length; j++ ){
                 if(!tempData[j].equals("")){
+                    System.err.println(i);
                     m_DB.setMS_DataAtribute(new MS_DataAtribute(tempData[j]),
                             newPos, i);
                     newPos++;
                 }       
             }
-            return i++;
+            return true;
         }else{
-            return 0;
+            return false;
         }
     }
     
