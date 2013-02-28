@@ -92,9 +92,8 @@ public class MS_UserColormap extends JFrame implements MS_ColorScheme{
  * @param carray 
  */
     @Override
-    public boolean setColourArray(Color[] carray) {
+    public void setColourArray(Color[] carray) {
         colorarray = carray;
-        return true;
     }
 
     /**
@@ -104,9 +103,8 @@ public class MS_UserColormap extends JFrame implements MS_ColorScheme{
      * @param int  
      */
     @Override
-    public boolean setColour(Color c, int i) {
+    public void setColour(Color c, int i) {
         colorarray[i] = c;
-        return true;
     
     }
     
