@@ -13,6 +13,9 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.chart.renderer.category.BarRenderer; 
 import java.awt.Color; 
 import java.awt.Paint;
+import java.io.File;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
 
@@ -160,6 +163,46 @@ public class MS_Barchart extends MS_Chart{
         myChart.setMouseWheelEnabled(true);
 
         return myChart;
+    }
+    
+    
+    
+    //TESTING CODE BEYOND THIS POINT
+    //TURN AROUND NOW!
+    
+    
+    
+    
+    public static void main (String[] args){
+        // Setting up the frame
+        JFrame view = new JFrame("Change me");
+        view.setBounds(0, 0, 500, 350);
+        JPanel container = new JPanel();
+        container.setBounds(view.getBounds());
+        view.add(container);
+        File f = new File("C://test/csv.csv");
+        MS_DataSet db = new MS_DataSet();
+        MS_CSVParser csv = new MS_CSVParser(db,f,",");
+        csv.ParseFile();
+        Color[] colorarray = {Color.BLACK, Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE} ;
+        
+        MS_ColourMap cm = new MS_ColourMap(colorarray);
+        
+        // change below for you class
+        int xColumn = 1;  
+        int yColumn = 4; 
+        
+        // MS_Barchart(MS_DataSet db,int xColumnPos, int yColPos, String title, Rectangle r, MS_ColourMap cm){
+        
+        container.add(new MS_Barchart(db,xColumn,yColumn,"title",view.getBounds(), cm));
+        
+        
+        container.validate();
+        container.repaint();
+        
+        view.repaint();
+        view.setVisible(true);
+        
     }
     
 }
