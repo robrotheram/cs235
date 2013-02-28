@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,6 +38,7 @@ public class MS_BasicGUI extends JFrame{
     Container m_container = getContentPane();;
     double m_height, m_width;
     int m_percentageHeight, m_percentageWidth;
+    Rectangle r = new Rectangle();
     
     public void MS_BasicGUI(){
         //create empty dataset
@@ -117,7 +119,8 @@ public class MS_BasicGUI extends JFrame{
                 JFrame getFile = new MS_CsvFileDialog(m_db);
                 getFile.setVisible(true);
                 System.out.println("button pressed");
-                MS_TablePanel table = new MS_TablePanel(m_db);
+                r =  new Rectangle(0,0,m_displayArea.getWidth(),m_displayArea.getWidth());
+                MS_TablePanel table = new MS_TablePanel(m_db, r);
                 m_displayTabs.addTab("Data", table);
             }else if(event.getSource() == m_createChart){
                 m_chartOptions.setVisible(true);
