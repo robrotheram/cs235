@@ -28,7 +28,7 @@ import javax.swing.JScrollPane;
  */
 public class MS_CsvFileDialog extends JFrame {
         
-  
+        private final boolean TESTING = true;
 	private JTextField m_delimiterFeild, m_FilePath;
 	private JButton m_ButtonAppy, m_ButtonCancel,m_ButtonBrowse;
 	private JPanel m_BrowsePanel, m_ButtonPannel, m_ChoosePannel, m_Sample;
@@ -188,6 +188,9 @@ public class MS_CsvFileDialog extends JFrame {
                                        (CLASS+"EventHandler.actionPerformed():"
                                        + " parseFile() has faild");
                            }
+                           if(TESTING){
+                            test();
+                           }
                             dispose(); 
                             
                         }
@@ -239,6 +242,16 @@ public class MS_CsvFileDialog extends JFrame {
               return csv.ParseFile();
           }
           
+          public void test(){
+              System.out.println();
+            for(int i= 0; i < m_db.getNumOfRows()-1; i++ ){
+                for(int j = 0; j < m_db.getNumOfColumns(); j++ ){
+                   System.out.print(m_db.getAtribute(j, i).getIntDataAttribute()+"       ");                
+                }
+                System.out.println();
+            }
+            
+          }
  /**
   * Main Method for testing this file
   * @param String[] args command Line arguments
@@ -246,6 +259,7 @@ public class MS_CsvFileDialog extends JFrame {
 	public static void main(String[] args){
 		MS_CsvFileDialog t = new MS_CsvFileDialog(new MS_DataSet());
 		t.setVisible(true);
+                
                 
                 
                
