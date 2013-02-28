@@ -180,7 +180,7 @@ public class MS_Barchart extends MS_Chart{
         JPanel container = new JPanel();
         container.setBounds(view.getBounds());
         view.add(container);
-        File f = new File("C://test/csv.csv");
+        File f = new File("C:/Users/William/Dropbox/csv.csv");
         MS_DataSet db = new MS_DataSet();
         MS_CSVParser csv = new MS_CSVParser(db,f,",");
         csv.ParseFile();

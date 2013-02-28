@@ -32,7 +32,6 @@ public class MS_UserColormap extends JFrame implements MS_ColorScheme{
         colorPanel.add(color3);
         colorPanel.add(color4);
         colorPanel.add(color5);
-        
         JButton ColormapButton = new JButton( "Colormap" );  // initialize the button called colormap
         ColormapButton.addActionListener(new ActionListener() { //add monitor to Colormap button 
             public void actionPerformed( ActionEvent e ){//and handle the corresponding event
@@ -73,31 +72,66 @@ public class MS_UserColormap extends JFrame implements MS_ColorScheme{
          setVisible(true);  //set it visibale
     }
     
+    /**
+     * 
+     * @param args 
+     * 
+     * the main method is used to test the usercolormap whether the chose color 
+     * stored in the color array and to get color from the color array display on
+     * color panel
+     * 
+     */
     public static void main(String args[]){
         new MS_UserColormap();
     }
-
+    
+/**
+ * 
+ * The setColourArray class stores structure of entire color data
+ * 
+ * @param carray 
+ */
     @Override
     public void setColourArray(Color[] carray) {
         colorarray = carray;
     }
 
+    /**
+     * set in the color array a Color c at position i
+     * 
+     * @param color
+     * @param int  
+     */
     @Override
     public void setColour(Color c, int i) {
         colorarray[i] = c;
     
     }
-
+    
+/**
+ * get color from color array
+ * @return color array
+ */
     @Override
     public Color[] getColourArray() {
         return colorarray;
     }
 
+    /**
+     * get individual color
+     * @param int
+     * @return int
+     */
     @Override
     public Color getColour(int i) {
         return colorarray[i];
     }
-
+    
+/**
+ * returns the number of color stored in array
+ * 
+ * @return int
+ */
     @Override
     public int getNumberOfColours() {
         return colorarray.length;
