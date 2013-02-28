@@ -18,13 +18,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
-import org.jfree.chart.plot.XYPlot;
-import org.jfree.data.xy.IntervalXYDataset;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
-import org.jfree.chart.renderer.category.BarRenderer;
-import org.jfree.chart.renderer.xy.XYBarRenderer;
-import org.jfree.chart.renderer.xy.XYItemRenderer;
 
 /**
 *@author William Bray
@@ -65,8 +58,8 @@ public class MS_Barchart extends MS_Chart{
      * @return dataset - the data that will be used in the chart creation
      *  process.
      */
-    public IntervalXYDataset convertDataSet(){
-        XYSeries dataset = new XYSeries(super.getTitle());
+    public DefaultCategoryDataset convertDataSet(){
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         
         
         int sum = 0;
@@ -82,18 +75,15 @@ public class MS_Barchart extends MS_Chart{
                  * adds to the dataset the sum value, String value of the number 
                  * in the xaxis column of the MS_DataSet
                  * */
-                dataset.add(sum,super.getDataSet().getAtribute(
-                        super.getXColumnPosition(), (i-1)).getIntDataAttribute());
+                dataset.addValue(sum, super.getTitle(),Integer.toString(super.getDataSet().getAtribute(
+                        super.getXColumnPosition(), (i-1)).getIntDataAttribute()));
                 
                 sum = super.getDataSet().getAtribute(super.getYColumnPosition(), i).getIntDataAttribute();
                 preval = super.getDataSet().getAtribute(super.getXColumnPosition(), i).getIntDataAttribute();
             
             }
         }
-        XYSeriesCollection collection = new XYSeriesCollection();
-	collection.addSeries(dataset);
-		
-	return collection;
+        return dataset;
     }
     
     /**
@@ -122,10 +112,9 @@ public class MS_Barchart extends MS_Chart{
      */
     @Override
     public JFreeChart createChart(){
-        final JFreeChart CHART = ChartFactory.createXYBarChart(
+        final JFreeChart CHART = ChartFactory.createBarChart(
             super.getTitle(),         // chart title
             super.getDataSet().getAColumnName(super.getXColumnPosition()),               // domain axis label
-            false,
             super.getDataSet().getAColumnName(super.getYColumnPosition()),                  // range axis label
             convertDataSet(),            
             PlotOrientation.VERTICAL, // orientation
@@ -134,11 +123,9 @@ public class MS_Barchart extends MS_Chart{
             false                     // URLs?
         );
         
-        XYPlot plot = (XYPlot) CHART.getPlot();
-        XYBarRenderer renderer = new XYBarRenderer();
+        final CategoryPlot plot = CHART.getCategoryPlot(); 
+        CategoryItemRenderer renderer = new CustomRenderer(); 
         plot.setRenderer(renderer);
-        
-
         return CHART;
     }
     
