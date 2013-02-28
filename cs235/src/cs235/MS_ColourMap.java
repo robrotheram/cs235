@@ -73,6 +73,11 @@ public class MS_ColourMap implements MS_ColorScheme{
         return true;
     }
     
+    /**
+     * Returns the coloured panels for colourmaps
+     * 
+     * @return panels coloured panels matching the colour array
+     */
     public JPanel[] getPanels(){
         return panels;
     }
@@ -87,7 +92,8 @@ public class MS_ColourMap implements MS_ColorScheme{
     }
 
     /**
-    * Get individual colour from colour array
+    * Get individual colours from the colour array
+    * 
     * @param i an int for the location of colour in array
     * @return m_colorArray[i] the colour at position a
     */
