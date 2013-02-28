@@ -138,8 +138,8 @@ public class MS_Barchart extends MS_Chart{
         public CustomRenderer(){ 
            MS_ColourMap mappedColours = getColourMap();
            this.colors = new Paint[] {
-             mappedColours.getColour(1), mappedColours.getColour(2), mappedColours.getColour(3), 
-             mappedColours.getColour(4), mappedColours.getColour(5)}; 
+             mappedColours.getColour(0), mappedColours.getColour(1), mappedColours.getColour(2), 
+             mappedColours.getColour(3), mappedColours.getColour(4)}; 
         }
         
         /**
@@ -180,7 +180,7 @@ public class MS_Barchart extends MS_Chart{
         JPanel container = new JPanel();
         container.setBounds(view.getBounds());
         view.add(container);
-        File f = new File("C://test/csv.csv");
+        File f = new File("C:/Users/William/Dropbox/csv.csv");
         MS_DataSet db = new MS_DataSet();
         MS_CSVParser csv = new MS_CSVParser(db,f,",");
         csv.ParseFile();

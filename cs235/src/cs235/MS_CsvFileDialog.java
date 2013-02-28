@@ -41,14 +41,15 @@ public class MS_CsvFileDialog extends JFrame {
         private JScrollPane m_ScrollText;
         private MS_DataSet m_db;
         private final String NEWLINE = "\n";
-	
+	private MS_BasicGUI m_Context;
         /**
          * 
          * @param MS_DataSet db - the refernce the the dataset stored in the 
          * progrma
          */
-	public MS_CsvFileDialog (MS_DataSet db){
+	public MS_CsvFileDialog (MS_DataSet db, MS_BasicGUI context){
                 m_db = db;
+                m_Context = context;
 		init();
 	}
 /**
@@ -182,6 +183,7 @@ public class MS_CsvFileDialog extends JFrame {
                                 System.out.println
                                         (CLASS+"EventHandler.actionPerformed():"
                                         + " parseFile() been successful");
+                                m_Context.displayTable();
                                 
                            }else{
                                System.out.println
@@ -189,6 +191,9 @@ public class MS_CsvFileDialog extends JFrame {
                                        + " parseFile() has faild");
                            }
                            if(TESTING){
+                               System.out.println
+                                       (CLASS+"EventHandler.actionPerformed():"
+                                       + " Testing output");
                             test();
                            }
                             dispose(); 
@@ -198,6 +203,22 @@ public class MS_CsvFileDialog extends JFrame {
 		}
 		
 	}
+        
+         /** 
+         * Sets the context of this class to a context
+         * @param  MS_BasicGUI context of this class
+         */
+        public void setContext(MS_BasicGUI con){
+            m_Context = con;
+        }
+
+        /**
+        * Gets the Context of this class
+        * @return MS_BasicGUI 
+        */
+        public MS_BasicGUI getContext(){
+            return m_Context;
+        }
         
         /**
          * calls the JFilechooser and when user has selected a file stores it.
@@ -212,10 +233,11 @@ public class MS_CsvFileDialog extends JFrame {
 	        }
 	        return m_File.getAbsolutePath();
 	  }
-/**
- * Reads the file and outputs it in a JTextArea
- * @return boolean true if there are no errors
- */	
+          
+        /**
+         * Reads the file and outputs it in a JTextArea
+         * @return boolean true if there are no errors
+         */	
           private Boolean diplayFile(){
               m_SampleData.setText("");
               Boolean test = true;
@@ -232,10 +254,10 @@ public class MS_CsvFileDialog extends JFrame {
               }
               return true;
           }
- /**
-  * Instantiates the MS_CSVParser and parses the file;
-  * @return boolean  true if file is parsed into the MS_DataSet correctly
-  */         
+    /**
+     * Instantiates the MS_CSVParser and parses the file;
+     * @return boolean  true if file is parsed into the MS_DataSet correctly
+     */         
           private boolean parseFile(){
               MS_CSVParser csv = 
                       new MS_CSVParser(m_db,m_File,m_delimiterFeild.getText());
@@ -257,7 +279,7 @@ public class MS_CsvFileDialog extends JFrame {
   * @param String[] args command Line arguments
   */       
 	public static void main(String[] args){
-		MS_CsvFileDialog t = new MS_CsvFileDialog(new MS_DataSet());
+		MS_CsvFileDialog t = new MS_CsvFileDialog(new MS_DataSet() ,new MS_BasicGUI());
 		t.setVisible(true);
                 
                 
