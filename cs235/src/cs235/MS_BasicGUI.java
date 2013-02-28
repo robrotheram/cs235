@@ -39,11 +39,12 @@ public class MS_BasicGUI extends JFrame{
     double m_height, m_width;
     int m_percentageHeight, m_percentageWidth;
     Rectangle r = new Rectangle();
+    private MS_BasicGUI m_Context;
     
     public void MS_BasicGUI(){
         //create empty dataset
         m_db = new MS_DataSet();
-              
+        m_Context = this;      
         //create container for GUI
         
         //creates a toolkit for our container
@@ -67,7 +68,9 @@ public class MS_BasicGUI extends JFrame{
         m_displayArea.setPreferredSize(new Dimension(m_percentageWidth, m_percentageHeight));
         System.out.println(m_displayArea.getHeight() + " " +  m_displayArea.getWidth());
         m_displayTabs = new JTabbedPane();
+        m_displayTabs.setPreferredSize(new Dimension(m_percentageWidth, m_percentageHeight));
         m_displayArea.add(m_displayTabs);
+        m_displayArea.validate();
         
         //create area for tools
         m_toolPanel = new JPanel();
@@ -116,16 +119,34 @@ public class MS_BasicGUI extends JFrame{
         public void actionPerformed(ActionEvent event) {
             if(event.getSource() == m_importData){
                 //creates a new CSVFileDialog for opening CSV files
-                JFrame getFile = new MS_CsvFileDialog(m_db);
+                JFrame getFile = new MS_CsvFileDialog(m_db ,m_Context );
                 getFile.setVisible(true);
-                System.out.println("button pressed");
-                r =  new Rectangle(0,0,m_displayArea.getWidth(),m_displayArea.getWidth());
-                MS_TablePanel table = new MS_TablePanel(m_db, r);
-                m_displayTabs.addTab("Data", table);
+                
             }else if(event.getSource() == m_createChart){
                 m_chartOptions.setVisible(true);
             }
         }
+    }
+    public boolean displayTable(){
+                r =  new Rectangle(0,0,m_displayArea.getWidth(),m_displayArea.getWidth());
+                JPanel tp  = new MS_TablePanel(m_db, r);
+                m_displayTabs.addTab("Data", tp);
+                return true;
+    }
+    /** 
+     * Sets the context of this class to a context
+     * @param  MS_BasicGUI context of this class
+     */
+    public void setContext(MS_BasicGUI con){
+        m_Context = con;
+    }
+    
+    /**
+     * Gets the Context of this class
+     * @return MS_BasicGUI 
+     */
+    public MS_BasicGUI getContext(){
+        return this;
     }
     
     public static void main(String[] args) throws IOException {
