@@ -138,8 +138,8 @@ public class MS_Barchart extends MS_Chart{
         public CustomRenderer(){ 
            MS_ColourMap mappedColours = getColourMap();
            this.colors = new Paint[] {
-             mappedColours.getColour(1), mappedColours.getColour(2), mappedColours.getColour(3), 
-             mappedColours.getColour(4), mappedColours.getColour(5)}; 
+             mappedColours.getColour(0), mappedColours.getColour(1), mappedColours.getColour(2), 
+             mappedColours.getColour(3), mappedColours.getColour(4)}; 
         }
         
         /**
