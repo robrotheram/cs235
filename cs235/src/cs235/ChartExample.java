@@ -194,7 +194,7 @@ public class ChartExample extends javax.swing.JFrame {
         int y = jComboBox2.getSelectedIndex();
         Rectangle r = new Rectangle(0,0,jPanel1.getWidth(),jPanel1.getWidth());
         //exampleChartPaneClass p = new exampleChartPaneClass(DB, x,y,jTextField1.getText(),r);
-        JPanel p = new MS_TablePanel(DB, x,y,jTextField1.getText(),r);
+        JPanel p = new MS_TablePanel(DB,r);
         
         jPanel1.removeAll();
         jPanel1.add(p);
