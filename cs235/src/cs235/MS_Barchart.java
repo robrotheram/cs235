@@ -41,6 +41,7 @@ public class MS_Barchart extends MS_Chart{
     /**
      * The class for setting the chart title. 
      * @param title - the charts title
+     * 
      */
     @Override
     public boolean setChartTitle(String title){
@@ -49,8 +50,10 @@ public class MS_Barchart extends MS_Chart{
     }
     
     /**
-     * Abstract class for converting the program dataset to the format needed to
-     * make a chart from it.
+     * A class which constructs a dataset which is usable for the creation
+     * of barcharts.
+     * @return dataset - the data that will be used in the chart creation
+     *  process.
      */
     public DefaultCategoryDataset convertDataSet(){
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
@@ -81,7 +84,8 @@ public class MS_Barchart extends MS_Chart{
     }
     
     /**
-     * Abstract class theat returns the array of the current colour map 
+     * Accessor method for returning the current colour map being used
+     * @return super.getColourMap() 
      */
     @Override
     public MS_ColourMap getColourMap(){
@@ -90,8 +94,8 @@ public class MS_Barchart extends MS_Chart{
     }
     
     /**
-     * Abstract class that sets the current colour map and carries out any 
-     * processing to change the colour of the chart elements
+     * Accessor method for setting the current colour map
+     * @param cm - a colour map to be used for this chart
      */
     @Override
     public boolean setColourMap(MS_ColourMap cm){
@@ -100,7 +104,8 @@ public class MS_Barchart extends MS_Chart{
     }
     
     /**
-     * Abstract class that creates the actual chart 
+     * Creates the bar chart
+     * @return the chart
      */
     @Override
     public JFreeChart createChart(){
@@ -121,6 +126,10 @@ public class MS_Barchart extends MS_Chart{
         return CHART;
     }
     
+    /**
+     * A renderer specific for this type of chart. Sets the colours that will 
+     * be used when displaying the chart.
+     */
     class CustomRenderer extends BarRenderer { 
         private Paint[] colors;
         public CustomRenderer(){ 
@@ -130,9 +139,14 @@ public class MS_Barchart extends MS_Chart{
              mappedColours.getColour(4), mappedColours.getColour(5)}; 
         }
         
+        /**
+         * Accessor method for getting the colours of each column
+         * @param row
+         * @param column
+         * @return the colour of each column 
+         */
         @Override
         public Paint getItemPaint(final int row, final int column) { 
-           // returns color for each column 
            return (this.colors[column % this.colors.length]); 
         } 
     }
