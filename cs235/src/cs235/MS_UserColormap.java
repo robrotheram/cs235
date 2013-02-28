@@ -110,7 +110,7 @@ public class MS_UserColormap extends JFrame implements MS_ColorScheme{
     
 /**
  * get color from color array
- * @return 
+ * @return color array
  */
     @Override
     public Color[] getColourArray() {
