@@ -150,10 +150,10 @@ public abstract class MS_Chart extends JPanel {
            System.err.println("MS_Chart().setChartTitle(): Failed");
        }
        
-       if(setData(db)){
-           System.out.println("MS_Chart().setData(): Successful");
+       if(setColourMap(cm)){
+           System.out.println("MS_Chart().setColourMap(): Successful");
        } else {
-           System.err.println("MS_Chart().setData(): Failed");
+           System.err.println("MS_Chart().setColourMap(): Failed");
        }
 
        this.setBounds(r);
