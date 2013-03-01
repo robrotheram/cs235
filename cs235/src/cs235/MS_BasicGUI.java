@@ -240,6 +240,7 @@ public class MS_BasicGUI extends JFrame{
         m_optionPane.add(Box.createRigidArea(new Dimension(300, 20)));
         
         //create button pane
+        m_optionButtonPane.setBackground(new Color(87,87,87));
         m_optionButtonPane.add(m_createChart);
         m_optionButtonPane.add(m_cancelChart);
         //add the components to the window
@@ -281,14 +282,14 @@ public class MS_BasicGUI extends JFrame{
                         //creates a barchart with the selected colour scheme
                         MS_Barchart chart = new MS_Barchart(m_db, x, y,
                         m_chartTitle.getText(),r,m_defaultColour);
-                        m_displayTabs.addTab("Barchart", chart);
+                        m_displayTabs.addTab( m_chartTitle.getText(), chart);
                         m_chartOptions.setVisible(false);
                         
                     } else if(chartTypeState.equals("ColourMap1")){
                         //creates a barchart with the selected colour scheme
                         MS_Barchart chart = new MS_Barchart(m_db, x, y,
                         m_chartTitle.getText(),r,m_colourMaps);
-                        m_displayTabs.addTab("Barchart", chart);
+                        m_displayTabs.addTab( m_chartTitle.getText(), chart);
                         m_chartOptions.setVisible(false);
                     }
                 } else if(m_chartType.getSelectedIndex() == 1){
@@ -297,14 +298,14 @@ public class MS_BasicGUI extends JFrame{
                         //creates a barchart with the selected colour scheme
                         MS_LineChart chart = new MS_LineChart(m_db, x, y,
                         m_chartTitle.getText(),r,m_defaultColour);
-                        m_displayTabs.addTab("Barchart", chart);
+                        m_displayTabs.addTab( m_chartTitle.getText(), chart);
                         m_chartOptions.setVisible(false);
                         
                     } else if(chartTypeState.equals("ColourMap1")){
                         //creates a barchart with the selected colour scheme
                         MS_LineChart chart = new MS_LineChart(m_db, x, y,
                         m_chartTitle.getText(),r,m_colourMaps);
-                        m_displayTabs.addTab("Barchart", chart);
+                        m_displayTabs.addTab(m_chartTitle.getText(), chart);
                         m_chartOptions.setVisible(false);
                     }
                 }
