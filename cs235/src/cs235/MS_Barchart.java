@@ -37,13 +37,23 @@ public class MS_Barchart extends MS_Chart{
      * @param r - to display the chart in the windows native size
      */
     public MS_Barchart(MS_DataSet db,int xColumnPos, int yColPos, String title, Rectangle r, MS_ColourMap cm){
-        super(db, xColumnPos, yColPos, title, r, cm);
-        
-        
+        super(db, xColumnPos, yColPos, title, r, cm);   
     }
+
+    /**
+     * Accessor method for returning the current colour map being used
+     * @return MS_ColourMap super.getColourMap() 
+     */
+    @Override
+    public MS_ColourMap getColourMap(){
+        return super.getColourMap();
+        
+    }    
+    
     /**
      * The class for setting the chart title. 
      * @param title - the charts title
+     * @return boolean - to test whether the assignment was successful
      * 
      */
     @Override
@@ -51,16 +61,26 @@ public class MS_Barchart extends MS_Chart{
         super.setChartTitle(title);
         return true;
     }
+
+    /**
+     * Accessor method for setting the current colour map
+     * @param cm - a colour map to be used for this chart
+     * @return boolean
+     */
+    @Override
+    public boolean setColourMap(MS_ColourMap cm){
+        super.setColourMap(cm);
+        return true;
+    }
     
     /**
      * A class which constructs a dataset which is usable for the creation
      * of barcharts.
-     * @return dataset - the data that will be used in the chart creation
-     *  process.
+     * @return DefaultCatagoryDataset dataset - the data that will be used in 
+     * the chart creation process.
      */
     public DefaultCategoryDataset convertDataSet(){
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        
         
         int sum = 0;
         int preval = super.getDataSet().getAtribute(super.getXColumnPosition(), 0).getIntDataAttribute();
@@ -86,29 +106,13 @@ public class MS_Barchart extends MS_Chart{
         return dataset;
     }
     
-    /**
-     * Accessor method for returning the current colour map being used
-     * @return super.getColourMap() 
-     */
-    @Override
-    public MS_ColourMap getColourMap(){
-        return super.getColourMap();
-        
-    }
+
+    
+
     
     /**
-     * Accessor method for setting the current colour map
-     * @param cm - a colour map to be used for this chart
-     */
-    @Override
-    public boolean setColourMap(MS_ColourMap cm){
-        super.setColourMap(cm);
-        return true;
-    }
-    
-    /**
-     * Creates the bar chart
-     * @return the chart
+     * Creates the bar chart using the other methods
+     * @return JFreeChart - the chart 
      */
     @Override
     public JFreeChart createChart(){
@@ -129,12 +133,19 @@ public class MS_Barchart extends MS_Chart{
         return CHART;
     }
     
+    
+    
     /**
      * A renderer specific for this type of chart. Sets the colours that will 
      * be used when displaying the chart.
      */
     class CustomRenderer extends BarRenderer { 
         private Paint[] colors;
+        
+        /**
+         * The constructor for the custom renderer, which will set the colours
+         * of the bars
+         */
         public CustomRenderer(){ 
            MS_ColourMap mappedColours = getColourMap();
            this.colors = new Paint[] {
@@ -144,8 +155,8 @@ public class MS_Barchart extends MS_Chart{
         
         /**
          * Accessor method for getting the colours of each column
-         * @param row
-         * @param column
+         * @param row - the identifier of the row it is returning
+         * @param column - the identifier of the column it is returning
          * @return the colour of each column 
          */
         @Override
