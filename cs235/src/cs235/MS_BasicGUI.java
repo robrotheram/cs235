@@ -32,9 +32,11 @@ import javax.swing.JTextField;
  */
 public class MS_BasicGUI extends JFrame{
     private Container m_container = getContentPane();
-    private double m_height, m_width;
+    
     private final Toolkit KIT = m_container.getToolkit();
     private final Dimension SCREENSIZE = KIT.getScreenSize();
+    private double m_height = SCREENSIZE.getHeight();
+    private double m_width = SCREENSIZE.getWidth();
     private final int PERCENTAGEHEIGHT = (int)(Math.round(m_height * 0.90));
     private final int PERCENTAGEWIDTH = (int) (Math.round(m_width * 0.70));
     private final int PERCENTAGEWIDTH2 = (int) (Math.round(m_width * 0.20));
@@ -89,8 +91,6 @@ public class MS_BasicGUI extends JFrame{
         //create container for GUI
         m_container.setPreferredSize(SCREENSIZE);
         m_container.setLayout(new BoxLayout(m_container, BoxLayout.LINE_AXIS));
-        m_height = SCREENSIZE.getHeight();
-        m_width = SCREENSIZE.getWidth();
         
         //create display area for data and charts
         m_displayArea = new JPanel();
