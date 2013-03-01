@@ -92,9 +92,11 @@ public final class MS_CsvFileDialog extends JFrame {
         int returnValue = fileChooser.showOpenDialog(null);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
           m_File = fileChooser.getSelectedFile();
-
+          return m_File.getAbsolutePath();
+        }else{
+            return "";
         }
-        return m_File.getAbsolutePath();
+        
     }
 
     /**
@@ -272,72 +274,68 @@ public final class MS_CsvFileDialog extends JFrame {
         // check if panel loads with corrct data
          MS_CsvFileDialog fd = null;
         try{
-            System.out.println("MS_CsvFileDialog():Test launch GUI ");
+            System.out.println("MS_CsvFileDialog.main():Test launch GUI ");
             final Rectangle FRAMESIZE = new Rectangle(0, 0, 500, 350); 
             fd = new MS_CsvFileDialog(new MS_DataSet(), new MS_BasicGUI());
             fd.setVisible(true);
-            System.out.println("MS_CsvFileDialog():Gui launched sucsseful");
+            System.out.println("MS_CsvFileDialog.main():"
+                    + "Gui launched sucsseful");
              passed++;
         }catch(Exception e){
-            System.err.println("MS_CsvFileDialog():Gui launched Failed with"
-                    + " Error : "+ e);
+            System.err.println("MS_CsvFileDialog.main():Gui "
+                    + "launched Failed with Error : "+ e);
             failed++;
         }
-        System.out.println("MS_CsvFileDialog():Test setFile() ");
+        System.out.println("MS_CsvFileDialog.main():Test setFile() ");
         
         if(fd.setFile(new File("/Users/Robert/Desktop/coal.csv"))){
-            System.out.println("MS_CsvFileDialog():Test setFile()"
+            System.out.println("MS_CsvFileDialog.main():Test setFile()"
                     + " successful");
             passed++;
         }else{
-            System.out.println("MS_CsvFileDialog():Test setFile()"
+            System.out.println("MS_CsvFileDialog.main():Test setFile()"
                     + " failed");
             failed++;
             
         }
         
-        System.out.println("MS_CsvFileDialog():Test setFile() ");
+        System.out.println("MS_CsvFileDialog.main():Test setFile() ");
         
         if(fd.setFile(new File("/this/path/des/notexist/csv.csv"))==false){
-            System.out.println("MS_CsvFileDialog():Test setFile()"
+            System.out.println("MS_CsvFileDialog.main():Test setFile()"
                     + " successful returned could not set file");
             passed++;
         }else{
-            System.out.println("MS_CsvFileDialog():Test setFile()"
+            System.out.println("MS_CsvFileDialog.main():Test setFile()"
                     + " failed");
             failed++;
             
         }
         
-        System.out.println("MS_CsvFileDialog():Test setContext() ");
+        System.out.println("MS_CsvFileDialog.main():Test setContext() ");
         if(fd.setDataSet(new MS_DataSet())){
-            System.out.println("MS_CsvFileDialog():Test setContext()"
+            System.out.println("MS_CsvFileDialog.main():Test setContext()"
                     + " successful");
             passed++;
         }else{
-            System.out.println("MS_CsvFileDialog():Test setContext()"
+            System.out.println("MS_CsvFileDialog.main():Test setContext()"
                     + " failed");
             failed++;
             
         }
         
-        System.out.println("MS_CsvFileDialog():Test setContext");
+        System.out.println("MS_CsvFileDialog.main():Test setContext");
         if(fd.setContext(new MS_BasicGUI())){
-            System.out.println("MS_CsvFileDialog():Test setContext()"
+            System.out.println("MS_CsvFileDialog.main():Test setContext()"
                     + " successful");
             passed++;
         }else{
-            System.out.println("MS_CsvFileDialog():Test setContext()"
+            System.out.println("MS_CsvFileDialog.main():Test setContext()"
                     + " failed");
             failed++;
             
         }
-        
-        
-        
-        
-        
-        
+
         System.out.println("------------------------------------------------");
         System.out.println("                 Testing Output                 ");
         System.out.println();

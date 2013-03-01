@@ -1,14 +1,12 @@
 package cs235;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Rectangle;
 import java.io.File;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
 
     /**
@@ -20,22 +18,7 @@ import javax.swing.table.DefaultTableModel;
      */
     public class MS_TablePanel extends JPanel {
      
-    private MS_DataSet m_DB;
 
-    /**
-     *Constructor that makes the chart
-     * @param MS_DataSet the Dataset 
-     * @param Rectangle r - the size of this Panel 
-     */
-
-
-    public MS_TablePanel(MS_DataSet db, Rectangle r){
-       m_DB = db;
-       this.setBounds(r);
-       this.setLayout(new java.awt.BorderLayout());
-       this.add(getTable(),BorderLayout.CENTER);
-       this.setVisible(true);
-    }
     /**
      * Set the dataset in this class
      * @param MS_DataSet db the dataset reference
@@ -151,6 +134,23 @@ import javax.swing.table.DefaultTableModel;
         
 
     }
+    
+     /**
+     *Constructor that makes the chart
+     * @param MS_DataSet the Dataset 
+     * @param Rectangle r - the size of this Panel 
+     */
+
+
+    public MS_TablePanel(MS_DataSet db, Rectangle r){
+       m_DB = db;
+       this.setBounds(r);
+       this.setLayout(new java.awt.BorderLayout());
+       this.add(getTable(),BorderLayout.CENTER);
+       this.setVisible(true);
+    }
+    
+    private MS_DataSet m_DB;
  
 
  }
