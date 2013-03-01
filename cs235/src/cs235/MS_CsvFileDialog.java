@@ -1,9 +1,6 @@
 package cs235;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.ComponentOrientation;
-import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -11,79 +8,123 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
-
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JFileChooser;
-import javax.swing.JScrollBar;
-import javax.swing.JScrollPane;
+
 
 /**
  * MS_CsvFileDialog creates a JFrame where the user can browser for their csv 
  * file and choose the delimitor in the csv file
  * @author Robert
  */
-public class MS_CsvFileDialog extends JFrame {
-        
-    // gui objects
-    private JTextField m_delimiterFeild, m_FilePath;
-    private JButton m_ButtonAppy, m_ButtonCancel,m_ButtonBrowse;
-    private JPanel m_BrowsePanel, m_ButtonPannel, m_ChoosePannel, m_Sample;
-    private EventHandler handle;
-    private JLabel m_Description;
-    private JTextArea m_SampleData;
-    private JScrollPane m_ScrollText;
+public final class MS_CsvFileDialog extends JFrame {
 
-    //data objects
-    private File m_File;
-    private MS_DataSet m_db;
-    private MS_BasicGUI m_Context;
-    
-
-    //Constants
-    private final Rectangle PANNELSIZE = new Rectangle(0,0,400,120);
-    private final Rectangle FRAMESIZE = new Rectangle(400,400,500,280);
-    private final Rectangle SAMPLEDATASIZE = new Rectangle(0,0,400,400);
-    private final int COLUMNCOUNTFILE = 20;
-    private final int COLUMNCOUNTDEL = 20;
-    private final int TEXTAREACOLUMN = 10;
-    private final int TEXTAREAROW = 40;
-    private final boolean TESTING = true;
-    private final String FILLER = "Sample text are";
-    private final String NEWLINE = "\n";
-    private final String CLASS = "MS_CsvFileDialog()";
-
+    /** 
+    * Sets the context of this class to a context
+    * @param  MS_BasicGUI context of this class
+    * @return boolean true if set correctly
+    */
+    public boolean setContext(MS_BasicGUI con){
+        m_Context = con;
+        return true;
+    }
 
     /**
-     * 
-     * @param MS_DataSet db - the refernce the the dataset stored in the 
-     * progrma
-     */
-    public MS_CsvFileDialog (MS_DataSet db, MS_BasicGUI context){
-           
-            if(setDataset(db)){
-                System.out.println(CLASS+".setDataset():Dataset set Correctly"); 
-            }else{
-                System.out.println(CLASS+".setDataset():Failed to add");
-            }
-            if(setContext(context)){
-                System.out.println(CLASS+".setContext():Context set Correctly");
-            }else{
-                System.out.println(CLASS+".setContext():Failed");
-            }
-            if(init()){
-                System.out.println(CLASS+".init():Gui initiated Correctly");
-            }else{
-                System.out.println(CLASS+".init():Failed");
-            }
-            
-            
+    * Gets the Context of this class
+    * @return MS_BasicGUI 
+    */
+    public MS_BasicGUI getContext(){
+        return m_Context;
     }
-    
+    /** 
+    * Set the file used in the program
+    * @param  FIle File used in the MS_CSVParser
+    * @return boolean true if set correctly
+    */
+    public boolean setFile(File f){
+        if(f.exists()){
+            m_File = f;  
+            return true;
+	  }else{
+            return false;  
+	  }
+        
+        
+    }
+
+    /**
+    * Gets the File used
+    * @return MS_BasicGUI 
+    */
+    public File getFile(){
+        return m_File;
+    }
+    /** 
+    * Sets the dataset used in the class
+    * @param  MS_DataSet the dataset of this class
+    * @return boolean true if set correctly
+    */
+    public boolean setDataSet(MS_DataSet db){
+        m_db = db;
+        return true;
+    }
+
+    /**
+    * Gets the Dataset of this class
+    * @return MS_BasicGUI 
+    */
+    public MS_DataSet getDataSet(){
+        return m_db;
+    }
+
+    /**
+     * calls the JFilechooser and when user has selected a file stores it.
+     * @return String absolute path to the selected file
+     */	
+    private String getFileDialog(){
+        JFileChooser fileChooser = new JFileChooser();
+        int returnValue = fileChooser.showOpenDialog(null);
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+          m_File = fileChooser.getSelectedFile();
+
+        }
+        return m_File.getAbsolutePath();
+    }
+
+    /**
+     * Reads the file and outputs it in a JTextArea
+     * @return boolean true if there are no errors
+     */	
+    private Boolean diplayFile(){
+        m_SampleData.setText("");
+        Boolean test = true;
+        try{
+            Scanner in = new Scanner(m_File);
+            while(in.hasNextLine()){
+                m_SampleData.append(in.nextLine()+NEWLINE);
+            }
+        }catch(IOException e){
+            System.err.println(CLASS+".displayFile(): "+e);
+            test = false;
+        }
+        return true;
+    }
+    /**
+    * Instantiates the MS_CSVParser and parses the file;
+    * @return boolean  true if file is parsed into the MS_DataSet correctly
+    */         
+    private boolean parseFile(){
+        MS_CSVParser csv = new MS_CSVParser
+                (m_db,m_File,m_delimiterFeild.getText());
+        return csv.ParseFile();
+    }
+
     /**
      * This function creates the objects sets the layout of the frame and the 
      * JPanels and adds the objects to them
@@ -219,110 +260,153 @@ public class MS_CsvFileDialog extends JFrame {
             }
         }
     }
-
-    /** 
-    * Sets the context of this class to a context
-    * @param  MS_BasicGUI context of this class
-    * @return boolean true if set correctly
-    */
-    public boolean setContext(MS_BasicGUI con){
-        m_Context = con;
-        return true;
-    }
-
-    /**
-    * Gets the Context of this class
-    * @return MS_BasicGUI 
-    */
-    public MS_BasicGUI getContext(){
-        return m_Context;
-    }
-    /** 
-    * Set the file used in the program
-    * @param  FIle File used in the MS_CSVParser
-    * @return boolean true if set correctly
-    */
-    public boolean setFile(File f){
-        m_File = f;
-        return true;
-    }
-
-    /**
-    * Gets the File used
-    * @return MS_BasicGUI 
-    */
-    public File getFile(){
-        return m_File;
-    }
-    /** 
-    * Sets the dataset used in the class
-    * @param  MS_DataSet the dataset of this class
-    * @return boolean true if set correctly
-    */
-    public boolean setDataset(MS_DataSet db){
-        m_db = db;
-        return true;
-    }
-
-    /**
-    * Gets the Dataset of this class
-    * @return MS_BasicGUI 
-    */
-    public MS_DataSet getDataSet(){
-        return m_db;
-    }
-
-    /**
-     * calls the JFilechooser and when user has selected a file stores it.
-     * @return String absolute path to the selected file
-     */	
-    private String getFileDialog(){
-        JFileChooser fileChooser = new JFileChooser();
-        int returnValue = fileChooser.showOpenDialog(null);
-        if (returnValue == JFileChooser.APPROVE_OPTION) {
-          m_File = fileChooser.getSelectedFile();
-
-        }
-        return m_File.getAbsolutePath();
-    }
-
-    /**
-     * Reads the file and outputs it in a JTextArea
-     * @return boolean true if there are no errors
-     */	
-    private Boolean diplayFile(){
-        m_SampleData.setText("");
-        Boolean test = true;
-        try{
-            Scanner in = new Scanner(m_File);
-            while(in.hasNextLine()){
-                m_SampleData.append(in.nextLine()+NEWLINE);
-            }
-        }catch(IOException e){
-            System.err.println(CLASS+".displayFile(): "+e);
-            test = false;
-        }
-        return true;
-    }
-    /**
-    * Instantiates the MS_CSVParser and parses the file;
-    * @return boolean  true if file is parsed into the MS_DataSet correctly
-    */         
-    private boolean parseFile(){
-        MS_CSVParser csv = new MS_CSVParser
-                (m_db,m_File,m_delimiterFeild.getText());
-        return csv.ParseFile();
-    }
-
     
     /**
-    * Main Method for testing this file
-    * @param String[] args command Line arguments
-    */       
-    public static void main(String[] args){
-        MS_CsvFileDialog t = new MS_CsvFileDialog
-                (new MS_DataSet() ,new MS_BasicGUI());
-        t.setVisible(true);
-	
+     * Main Method for testing this class
+     * @param String[] Arguments 
+     */
+    
+    public static void main (String[] args){
+        int passed =0;
+        int failed = 0;
+        // check if panel loads with corrct data
+         MS_CsvFileDialog fd = null;
+        try{
+            System.out.println("MS_CsvFileDialog():Test launch GUI ");
+            final Rectangle FRAMESIZE = new Rectangle(0, 0, 500, 350); 
+            fd = new MS_CsvFileDialog(new MS_DataSet(), new MS_BasicGUI());
+            fd.setVisible(true);
+            System.out.println("MS_CsvFileDialog():Gui launched sucsseful");
+             passed++;
+        }catch(Exception e){
+            System.err.println("MS_CsvFileDialog():Gui launched Failed with"
+                    + " Error : "+ e);
+            failed++;
+        }
+        System.out.println("MS_CsvFileDialog():Test setFile() ");
+        
+        if(fd.setFile(new File("/Users/Robert/Desktop/coal.csv"))){
+            System.out.println("MS_CsvFileDialog():Test setFile()"
+                    + " successful");
+            passed++;
+        }else{
+            System.out.println("MS_CsvFileDialog():Test setFile()"
+                    + " failed");
+            failed++;
+            
+        }
+        
+        System.out.println("MS_CsvFileDialog():Test setFile() ");
+        
+        if(fd.setFile(new File("/this/path/des/notexist/csv.csv"))==false){
+            System.out.println("MS_CsvFileDialog():Test setFile()"
+                    + " successful returned could not set file");
+            passed++;
+        }else{
+            System.out.println("MS_CsvFileDialog():Test setFile()"
+                    + " failed");
+            failed++;
+            
+        }
+        
+        System.out.println("MS_CsvFileDialog():Test setContext() ");
+        if(fd.setDataSet(new MS_DataSet())){
+            System.out.println("MS_CsvFileDialog():Test setContext()"
+                    + " successful");
+            passed++;
+        }else{
+            System.out.println("MS_CsvFileDialog():Test setContext()"
+                    + " failed");
+            failed++;
+            
+        }
+        
+        System.out.println("MS_CsvFileDialog():Test setContext");
+        if(fd.setContext(new MS_BasicGUI())){
+            System.out.println("MS_CsvFileDialog():Test setContext()"
+                    + " successful");
+            passed++;
+        }else{
+            System.out.println("MS_CsvFileDialog():Test setContext()"
+                    + " failed");
+            failed++;
+            
+        }
+        
+        
+        
+        
+        
+        
+        System.out.println("------------------------------------------------");
+        System.out.println("                 Testing Output                 ");
+        System.out.println();
+        System.out.println();
+        System.out.println("Number of test run: "+(passed+failed));
+        System.out.println("Ms_TablePanel() Passed:  "+(passed));
+        System.out.println("Ms_TablePanel() Failed:  "+(failed));
+        System.out.println();
+        System.out.println();
+        System.out.println("------------------------------------------------");
+        
+        
+        
+
     }
+
+    /**
+     * 
+     * @param MS_DataSet db - the refernce the the dataset stored in the 
+     * progrma
+     */
+    public MS_CsvFileDialog (MS_DataSet db, MS_BasicGUI context){
+           
+            if(setDataSet(db)){
+                System.out.println(CLASS+".setDataset():Dataset set Correctly"); 
+            }else{
+                System.out.println(CLASS+".setDataset():Failed to add");
+            }
+            if(setContext(context)){
+                System.out.println(CLASS+".setContext():Context set Correctly");
+            }else{
+                System.out.println(CLASS+".setContext():Failed");
+            }
+            if(init()){
+                System.out.println(CLASS+".init():Gui initiated Correctly");
+            }else{
+                System.out.println(CLASS+".init():Failed");
+            }
+            
+            
+    }
+    
+            
+    // gui objects
+    private JTextField m_delimiterFeild, m_FilePath;
+    private JButton m_ButtonAppy, m_ButtonCancel,m_ButtonBrowse;
+    private JPanel m_BrowsePanel, m_ButtonPannel, m_ChoosePannel, m_Sample;
+    private EventHandler handle;
+    private JLabel m_Description;
+    private JTextArea m_SampleData;
+    private JScrollPane m_ScrollText;
+
+    //data objects
+    private File m_File;
+    private MS_DataSet m_db;
+    private MS_BasicGUI m_Context;
+    
+
+    //Constants
+    private final Rectangle PANNELSIZE = new Rectangle(0,0,400,120);
+    private final Rectangle FRAMESIZE = new Rectangle(400,400,500,280);
+    private final Rectangle SAMPLEDATASIZE = new Rectangle(0,0,400,400);
+    private final int COLUMNCOUNTFILE = 20;
+    private final int COLUMNCOUNTDEL = 20;
+    private final int TEXTAREACOLUMN = 10;
+    private final int TEXTAREAROW = 40;
+    private final boolean TESTING = true;
+    private final String FILLER = "Sample text are";
+    private final String NEWLINE = "\n";
+    private final String CLASS = "MS_CsvFileDialog()";
+
 }
