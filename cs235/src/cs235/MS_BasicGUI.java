@@ -128,6 +128,8 @@ public class MS_BasicGUI extends JFrame{
         m_chartOptionContainer.setPreferredSize(new Dimension(500,400));
         m_chartOptionContainer.setLayout(new BoxLayout(m_chartOptionContainer,
                 BoxLayout.LINE_AXIS));
+        m_chartOptionContainer.setBackground( new Color(87,87,87));
+        
         
         //create panel to contain options, set size, and layout
         m_optionPane = new JPanel();
@@ -240,7 +242,6 @@ public class MS_BasicGUI extends JFrame{
         m_optionPane.add(Box.createRigidArea(new Dimension(300, 20)));
         
         //create button pane
-        m_optionButtonPane.setBackground(new Color(87,87,87));
         m_optionButtonPane.add(m_createChart);
         m_optionButtonPane.add(m_cancelChart);
         //add the components to the window
