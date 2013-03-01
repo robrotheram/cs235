@@ -10,9 +10,10 @@ import javax.swing.JPanel;
  */
 public class MS_ColourMap implements MS_ColorScheme{
     private Color[] m_colorArray = new Color[5];
-    private JPanel m_colourPanel, m_defaultC2
-            , m_defaultC3, m_defaultC4, m_defaultC5;
-    private JPanel[] panels = {m_colourPanel, m_defaultC2
+    private JPanel m_colourPanel = new JPanel(), m_defaultC2 = new JPanel()
+            , m_defaultC3 = new JPanel(), m_defaultC4 = new JPanel(), 
+            m_defaultC5 = new JPanel();
+    private JPanel[] m_panels = {m_colourPanel, m_defaultC2
             , m_defaultC3, m_defaultC4, m_defaultC5};
             
    /**
@@ -26,10 +27,10 @@ public class MS_ColourMap implements MS_ColorScheme{
         } else if(!setColourArray(colorArray)){
             System.err.println("Unable to set colours in MS_ColourMap");
         }
-        if(setPanels(panels)){
+        if(setPanels(m_panels)){
             System.out.println("Colour panels set in MS_ColourMap");
         }
-        else if(!setPanels(panels)){
+        else if(!setPanels(m_panels)){
             System.err.println("Colour panels not set in MS_ColourMap");
         }
     }
@@ -79,7 +80,7 @@ public class MS_ColourMap implements MS_ColorScheme{
      * @return panels coloured panels matching the colour array
      */
     public JPanel[] getPanels(){
-        return panels;
+        return m_panels;
     }
     
     /**
