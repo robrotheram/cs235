@@ -58,7 +58,7 @@ public class MS_BasicGUI extends JFrame{
     private MS_GUIHandler m_handler = new MS_GUIHandler();
     private String chartTypeState;
     
-    public void MS_BasicGUI(){
+    public MS_BasicGUI(){
         //create empty dataset
         m_db = new MS_DataSet();
         m_Context = this;      
@@ -350,6 +350,6 @@ public class MS_BasicGUI extends JFrame{
  
        MS_BasicGUI example1 = new MS_BasicGUI();
        example1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-       example1.MS_BasicGUI();
+       example1.setVisible(true);
     }
 }
