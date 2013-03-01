@@ -22,7 +22,7 @@ import org.jfree.chart.renderer.category.CategoryItemRenderer;
  * The Line chart class inherits from the chart class.
  * The Line chart class will construct a barchart from a data set to be displayed in the GUI
  */
-public abstract class MS_LineChart extends MS_Chart {
+public class MS_LineChart extends MS_Chart {
     
     /**
      * The constructor will set all class variables for the Line Chart
