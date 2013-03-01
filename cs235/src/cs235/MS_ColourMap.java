@@ -113,6 +113,19 @@ public class MS_ColourMap implements MS_ColorScheme{
         return m_colorArray.length;
     }
     
+    /*
+     * New toString method for the purpose of testing
+     */
+    public String toString(MS_ColourMap cm){
+        String output = "";
+        for(int i = 0; i < cm.getNumberOfColours(); i++){
+            output = output + cm.getColour(i);
+            output = output + " ";
+        }
+        
+        return output;
+    }
+    
 }
 
 

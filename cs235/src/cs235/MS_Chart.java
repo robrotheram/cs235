@@ -6,7 +6,6 @@ package cs235;
 
 import java.awt.BorderLayout;
 import java.awt.Rectangle;
-import java.util.Date;
 import javax.swing.JPanel;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -22,37 +21,59 @@ import org.jfree.chart.JFreeChart;
 public abstract class MS_Chart extends JPanel {
     
     private MS_DataSet m_db;
-    private final int X_AXISDATAPOSITION;
-    private final int Y_AXISDATAPOSITION;
+    private int m_xAxisDataPosition;
+    private int m_yAxisDataPosition;
     private String m_title;
     private MS_ColourMap m_cm;
     
     /**
-     * constructor setting all class variables needed to create a chart
-     * @param db - the data for the chart
-     * @param xColumnPos - the column data for the x axis from the dataset
-     * @param yColPos - the column data for the y axis from the dataset
-     * @param title - chart title
-     * @param r - to display the chart in the windows native size
+     * Allows access for setting the dataset
+     * 
+     * @param db dataset to be set
+     * @return returns true is set is successful
      */
-    public MS_Chart(MS_DataSet db,int xColumnPos, int yColPos, String title, Rectangle r, MS_ColourMap cm){
-       m_db = db;
-       X_AXISDATAPOSITION = xColumnPos;
-       Y_AXISDATAPOSITION = yColPos;
-       m_title = title;
-       m_cm = cm;
-
-       this.setBounds(r);
-       this.setLayout(new java.awt.BorderLayout());
-       this.add(createPanel(),BorderLayout.CENTER);
-       this.setVisible(true);
-    };
+    boolean setData(MS_DataSet db){
+        m_db = db;
+        return true;
+    }
+    
+    /**
+     * Allows access for setting the x axis data to be used for making charts
+     * 
+     * @param xData
+     * @return 
+     */
+    boolean setXData(int xData){
+        m_xAxisDataPosition = xData;
+        return true;
+    }
+    
+    /**
+     * Allows access for setting the y axis data to be used for making charts
+     * 
+     * @param yData
+     * @return 
+     */
+    boolean setYData(int yData){
+        m_yAxisDataPosition = yData;
+        return true;
+    }
     
     /**
      * Allows setting the chart title. 
      */
     boolean setChartTitle(String newTitle){
         m_title = newTitle;
+        return true;
+    };
+    
+    /**
+     * Abstract class that sets the current colour map and carries out any 
+     * processing to change the colour of the chart elements
+     */
+    boolean setColourMap(MS_ColourMap colourMap){
+        m_cm = colourMap;
+        
         return true;
     };
     
@@ -69,7 +90,7 @@ public abstract class MS_Chart extends JPanel {
      * @return X_AXISDATAPOSITION
      */
     int getXColumnPosition(){
-        return X_AXISDATAPOSITION;
+        return m_xAxisDataPosition;
     }
     
     /**
@@ -77,7 +98,7 @@ public abstract class MS_Chart extends JPanel {
      * @return Y_AXISDATAPOSITION
      */
     int getYColumnPosition(){
-        return Y_AXISDATAPOSITION;
+        return m_yAxisDataPosition;
     }
     
     /**
@@ -96,13 +117,49 @@ public abstract class MS_Chart extends JPanel {
     };
     
     /**
-     * Abstract class that sets the current colour map and carries out any 
-     * processing to change the colour of the chart elements
+     * constructor setting all class variables needed to create a chart
+     * @param db - the data for the chart
+     * @param xColumnPos - the column data for the x axis from the dataset
+     * @param yColPos - the column data for the y axis from the dataset
+     * @param title - chart title
+     * @param r - to display the chart in the windows native size
      */
-    boolean setColourMap(MS_ColourMap colourMap){
-        m_cm = colourMap;
-        
-        return true;
+    public MS_Chart(MS_DataSet db,int xColumnPos, int yColumnPos, String title, 
+            Rectangle r, MS_ColourMap cm){
+       if(setData(db)){
+           System.out.println("MS_Chart().setData(): Successful");
+       } else {
+           System.err.println("MS_Chart().setData(): Failed");
+       }
+       
+       if(setXData(xColumnPos)){
+           System.out.println("MS_Chart().setXData(): Successful");
+       } else {
+           System.err.println("MS_Chart().setXData(): Failed");
+       }
+       
+       if(setYData(yColumnPos)){
+           System.out.println("MS_Chart().setYData(): Successful");
+       } else {
+           System.err.println("MS_Chart().setYData(): Failed");
+       }
+       
+       if(setChartTitle(title)){
+           System.out.println("MS_Chart().setChartTitle(): Successful");
+       } else {
+           System.err.println("MS_Chart().setChartTitle(): Failed");
+       }
+       
+       if(setData(db)){
+           System.out.println("MS_Chart().setData(): Successful");
+       } else {
+           System.err.println("MS_Chart().setData(): Failed");
+       }
+
+       this.setBounds(r);
+       this.setLayout(new java.awt.BorderLayout());
+       this.add(createPanel(),BorderLayout.CENTER);
+       this.setVisible(true);
     };
     
     /**
