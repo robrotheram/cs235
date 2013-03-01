@@ -1,20 +1,15 @@
 package cs235;
 
-import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Rectangle;
-import javax.swing.JPanel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.LineAndShapeRenderer;
+import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
-import java.awt.Color; 
-import java.awt.Paint;
-import java.io.File;
-import javax.swing.JFrame;
-import org.jfree.chart.renderer.category.AbstractCategoryItemRenderer;
-import org.jfree.chart.renderer.category.BarRenderer;
-import org.jfree.chart.renderer.category.CategoryItemRenderer;
 
  /**
  *
@@ -102,6 +97,7 @@ public class MS_LineChart extends MS_Chart {
     @Override
     public boolean setColourMap (MS_ColourMap cm) {
          super.setColourMap(cm);
+
          return true;
      }    
        
@@ -122,7 +118,18 @@ public class MS_LineChart extends MS_Chart {
             true,                     // tooltips?
             false                     // URLs?
         );
-            
+        MS_ColourMap mappedColours = getColourMap();
+        CategoryPlot plot = (CategoryPlot) chart.getPlot();
+
+        // customise the renderer...
+        LineAndShapeRenderer renderer
+        = (LineAndShapeRenderer) plot.getRenderer();
+        renderer.setShapesVisible(true);
+        renderer.setDrawOutlines(true);
+        renderer.setUseFillPaint(true);
+        renderer.setSeriesPaint(0, mappedColours.getColour(0));
+        renderer.setFillPaint(Color.WHITE);
+    
                     
      /*   final PositionRender rend = chart.getPositionRend;
         PositionItemRenderer renderer = new UniqueRenderer();
