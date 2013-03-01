@@ -279,7 +279,7 @@ public class MS_BasicGUI extends JFrame{
                     //checks which colour scheme is selected
                     if(chartTypeState.equals("DefaultColour")){
                         //creates a barchart with the selected colour scheme
-                        JPanel chart = new MS_Barchart(m_db, x, y,
+                        MS_Barchart chart = new MS_Barchart(m_db, x, y,
                         m_chartTitle.getText(),r,m_defaultColour);
                         m_displayTabs.addTab("Barchart", chart);
                         m_chartOptions.setVisible(false);
@@ -292,7 +292,21 @@ public class MS_BasicGUI extends JFrame{
                         m_chartOptions.setVisible(false);
                     }
                 } else if(m_chartType.getSelectedIndex() == 1){
-                    System.err.println("Line Chart not implemented correctly yet.");
+                    //checks which colour scheme is selected
+                    if(chartTypeState.equals("DefaultColour")){
+                        //creates a barchart with the selected colour scheme
+                        MS_LineChart chart = new MS_LineChart(m_db, x, y,
+                        m_chartTitle.getText(),r,m_defaultColour);
+                        m_displayTabs.addTab("Barchart", chart);
+                        m_chartOptions.setVisible(false);
+                        
+                    } else if(chartTypeState.equals("ColourMap1")){
+                        //creates a barchart with the selected colour scheme
+                        MS_LineChart chart = new MS_LineChart(m_db, x, y,
+                        m_chartTitle.getText(),r,m_colourMaps);
+                        m_displayTabs.addTab("Barchart", chart);
+                        m_chartOptions.setVisible(false);
+                    }
                 }
                 
                 

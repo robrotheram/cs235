@@ -109,8 +109,9 @@ public class MS_LineChart extends MS_Chart {
  
     /**
      * Abstract class that creates the actual chart 
-     */    
-    public JFreeChart createLineChart(){
+     */   
+    @Override
+    public JFreeChart createChart(){
         final JFreeChart chart = ChartFactory.createLineChart(
             super.getTitle(),                                                     // chart title
             super.getDataSet().getAColumnName(super.getXColumnPosition()),        // domain axis label
@@ -149,7 +150,7 @@ public class MS_LineChart extends MS_Chart {
      * @return myChart 
      */
     private  ChartPanel createPanel(){      
-         ChartPanel myChart = new ChartPanel(createLineChart());
+         ChartPanel myChart = new ChartPanel(createChart());
          myChart.setMouseWheelEnabled(true);
             
             return myChart;
