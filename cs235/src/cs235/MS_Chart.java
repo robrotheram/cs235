@@ -5,7 +5,10 @@
 package cs235;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Rectangle;
+import java.io.File;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -175,6 +178,47 @@ public abstract class MS_Chart extends JPanel {
         ChartPanel myChart = new ChartPanel(createChart());
            myChart.setMouseWheelEnabled(true);
         return myChart;
+    }
+    
+    public static void main(String[] args){
+       /**
+        * some of this class is abstract so the class itself can't visually
+        * create a chart. Checked set and get methods worked by hard-coding in
+        * some data and out putting the changes to check data is being stored
+        * correctly for subclasses to use.
+        */
+        JFrame view = new JFrame("Test Frame");
+        view.setBounds(0, 0, 500, 350);
+        JPanel container = new JPanel();
+        container.setBounds(view.getBounds());
+        view.add(container);
+        File f = new File("/Users/vampie/Downloads/coalDisasters-1.csv");
+        MS_DataSet db = new MS_DataSet();
+        MS_CSVParser csv = new MS_CSVParser(db,f,",");
+        csv.ParseFile();
+        Color[] colorarray = {Color.BLACK, Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE} ;
+        
+        MS_ColourMap cm = new MS_ColourMap(colorarray);
+        
+        // change below for you class
+        int xColumn = 1;  
+        int yColumn = 4;
+        
+        //setMethods already output messages if setting was managed
+        MS_Barchart bc = new MS_Barchart(db,xColumn,yColumn,"title",view.getBounds(), cm);
+        
+        //test db is returned
+        System.out.println("Get dataset: " + bc.getDataSet() + " Note: this"
+                + " returns the memory location of the dataset if it has been"
+                + "set.");
+        //test x and y coloumns are returned
+        System.out.println("Get X column: " + bc.getXColumnPosition() + " Get"
+                + "Y column: " + bc.getYColumnPosition());
+        //test chart title it returned
+        System.out.println("Get chart title: " + bc.getTitle());
+        //test the colourmap is returned
+        System.out.println("Get colour map: " + bc.getColourMap().toString(bc.getColourMap()));
+                
     }
     
 }
