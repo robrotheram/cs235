@@ -269,10 +269,8 @@ public class MS_BasicGUI extends JFrame{
         m_chartOptionContainer.add(m_optionPane);
         m_chartOptionContainer.add(m_optionButtonPane);
         m_chartOptions.add(m_chartOptionContainer);
-        //pack();
-        //setLocationRelativeTo(null);
-        //setVisible(true);
         
+        //add handlers
         m_createChart.addActionListener(m_handler);
         m_cancelChart.addActionListener(m_handler);
         m_defaultColourRadio.addActionListener(m_handler);
@@ -381,5 +379,23 @@ public class MS_BasicGUI extends JFrame{
        MS_BasicGUI example1 = new MS_BasicGUI();
        example1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
        example1.setVisible(true);
+       
+       /**
+        * Tests can't really be written as the GUI requires button presses and 
+        * such. 
+        * Tested the GUI by:
+        * Importing a test csv.
+        * Trying to import something that wasn't a csv file.
+        * Created a bar chart with the csv with title and default colour scheme
+        * selected using every y and x field combination.
+        * Created a bar chart with the csv with no title and default colour 
+        * scheme using every y and x field combination.
+        * Created line chart with the csv with no title and default colour
+        * scheme using every y and x field combination.
+        * Created line chart with the csv with title and default colour
+        * scheme using every y and x field combination.
+        * Tried to create a chart when no data had been loaded.
+        * 
+        */
     }
 }
