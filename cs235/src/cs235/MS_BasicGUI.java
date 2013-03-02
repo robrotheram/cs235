@@ -20,6 +20,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTabbedPane;
@@ -59,7 +60,7 @@ public class MS_BasicGUI extends JFrame{
             m_optionPane, m_optionButtonPane, m_defaultC1, m_defaultC2, 
             m_defaultC3, m_defaultC4, m_defaultC5, m_colour1, m_colour2, 
             m_colour3, m_colour4, m_colour5, m_defaultCPanel, m_colourPanel;
-    private JFrame m_chartOptions;
+    private JFrame m_chartOptions, m_warning;
     private JTabbedPane m_displayTabs;
     private JButton m_importData, m_optionsOpen, m_createChart, m_cancelChart, 
             m_saveButton;
@@ -84,6 +85,9 @@ public class MS_BasicGUI extends JFrame{
      * constructor that sets up the GUI
      */
     public MS_BasicGUI(){
+        //sets program to exit if GUI is closed
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
         //create empty dataset
         m_db = new MS_DataSet();
         m_Context = this;      
@@ -288,10 +292,19 @@ public class MS_BasicGUI extends JFrame{
                 getFile.setVisible(true);
                 
             }else if(event.getSource() == m_optionsOpen){
-                //intialises the components incase the data has changed
-                initOptionPane();
-                m_chartOptions.setVisible(true);
-                    
+                //checks if there is data to be read from before making a chart
+                if(m_db.getDataSet() == null){
+                    //displays a warning if there is no data
+                    JOptionPane.showMessageDialog(m_warning,
+                    "No data has been loaded. Please use the import button to "
+                            + "to load your data.",
+                    "Inane warning",
+                    JOptionPane.WARNING_MESSAGE);
+                } else {
+                    //intialises the components incase the data has changed
+                    initOptionPane();
+                    m_chartOptions.setVisible(true);
+                }   
                 
             } else if( event.getSource() == m_createChart){
                 // stores the selected indexes of the x and y boxes
