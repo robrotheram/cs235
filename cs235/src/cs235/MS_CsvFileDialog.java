@@ -94,7 +94,7 @@ public final class MS_CsvFileDialog extends JFrame {
           m_File = fileChooser.getSelectedFile();
           return m_File.getAbsolutePath();
         }else{
-            return "";
+            return null;
         }
         
     }
@@ -231,12 +231,14 @@ public final class MS_CsvFileDialog extends JFrame {
                 System.out.println(CLASS+"EventHandler.actionPerformed(): "
                          + " m_ButtonBrowse been pressed ");
 
-                m_FilePath.setText((getFileDialog()));
-                if(diplayFile()){
-                        System.out.println(CLASS+".displayFile(): File Has been"
-                                + " read no errors");
-                }else{
-                    System.out.println(CLASS+".displayFile(): Error with file");
+                if(getFileDialog()!= null){
+                     m_FilePath.setText(m_File.getAbsolutePath());
+                    if(diplayFile()){
+                            System.out.println(CLASS+".displayFile(): File Has been"
+                                    + " read no errors");
+                    }else{
+                        System.out.println(CLASS+".displayFile(): Error with file");
+                    }
                 }
 
             }else if(event.getSource() == m_ButtonCancel){
