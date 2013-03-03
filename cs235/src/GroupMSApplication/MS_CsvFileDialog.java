@@ -1,4 +1,4 @@
-package cs235;
+package GroupMSApplication;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;

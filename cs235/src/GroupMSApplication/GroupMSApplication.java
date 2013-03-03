@@ -25,7 +25,7 @@
  *
  */
 
-package cs235;
+package GroupMSApplication;
 
 /**
  *

@@ -1,4 +1,4 @@
-package cs235;
+package GroupMSApplication;
 
 import java.util.ArrayList;
 

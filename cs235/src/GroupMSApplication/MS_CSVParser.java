@@ -1,4 +1,4 @@
-package cs235;
+package GroupMSApplication;
 
 import java.io.File;
 import java.io.FileNotFoundException;

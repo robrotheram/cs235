@@ -1,4 +1,4 @@
-package cs235;
+package GroupMSApplication;
 
 /**
  *This Class aloud the user to choose their own custom color map
