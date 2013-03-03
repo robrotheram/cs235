@@ -137,7 +137,7 @@ public class MS_BasicGUI extends JFrame{
     /**
      * Option pane builder
      */
-    private void initOptionPane() {
+    private void InitOptionPane() {
         //create and set frame size
         m_chartOptions = new JFrame();
         m_chartOptions.setSize(OPTIONPANELSIZE);
@@ -302,7 +302,7 @@ public class MS_BasicGUI extends JFrame{
                     JOptionPane.WARNING_MESSAGE);
                 } else {
                     //intialises the components incase the data has changed
-                    initOptionPane();
+                    InitOptionPane();
                     m_chartOptions.setVisible(true);
                 }   
                 
